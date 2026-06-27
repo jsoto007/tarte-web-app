@@ -38,27 +38,31 @@ test.describe("navigation", () => {
 });
 
 test.describe("menu filter", () => {
-  test("shows only the selected category", async ({ page }) => {
+  test("filters sections by Food / Drinks group", async ({ page }) => {
     await page.goto("/menu");
+    // "All" shows both a Food section and a Drinks section.
     await expect(
-      page.getByRole("heading", { level: 2, name: "Espresso" }),
+      page.getByRole("heading", { level: 2, name: "Bagels", exact: true }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { level: 2, name: "Bakery" }),
+      page.getByRole("heading", { level: 2, name: "Hot", exact: true }),
     ).toBeVisible();
 
-    await page.getByRole("button", { name: "Espresso", exact: true }).click();
+    await page.getByRole("button", { name: "Food", exact: true }).click();
     await expect(
-      page.getByRole("heading", { level: 2, name: "Espresso" }),
+      page.getByRole("heading", { level: 2, name: "Bagels", exact: true }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { level: 2, name: "Bakery" }),
+      page.getByRole("heading", { level: 2, name: "Hot", exact: true }),
     ).toHaveCount(0);
 
-    await page.getByRole("button", { name: "All", exact: true }).click();
+    await page.getByRole("button", { name: "Drinks", exact: true }).click();
     await expect(
-      page.getByRole("heading", { level: 2, name: "Bakery" }),
+      page.getByRole("heading", { level: 2, name: "Hot", exact: true }),
     ).toBeVisible();
+    await expect(
+      page.getByRole("heading", { level: 2, name: "Bagels", exact: true }),
+    ).toHaveCount(0);
   });
 });
 

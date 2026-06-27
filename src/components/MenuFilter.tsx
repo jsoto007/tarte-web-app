@@ -2,13 +2,13 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { menu, menuCategories } from "@/data/menu";
+import { menu, menuGroups } from "@/data/menu";
 import { Button } from "./Button";
 
 export function MenuFilter() {
   const [cat, setCat] = useState<string>("All");
   const visibleSections =
-    cat === "All" ? menu : menu.filter((s) => s.title === cat);
+    cat === "All" ? menu : menu.filter((s) => s.group === cat);
 
   return (
     <>
@@ -37,7 +37,7 @@ export function MenuFilter() {
             margin: "0 auto",
           }}
         >
-          {menuCategories.map((c) => (
+          {menuGroups.map((c) => (
             <button
               key={c}
               type="button"
@@ -74,7 +74,7 @@ export function MenuFilter() {
                   display: "flex",
                   alignItems: "baseline",
                   gap: 18,
-                  marginBottom: 28,
+                  marginBottom: sec.note ? 8 : 28,
                 }}
               >
                 <h2
@@ -97,6 +97,19 @@ export function MenuFilter() {
                   }}
                 />
               </div>
+              {sec.note && (
+                <p
+                  style={{
+                    margin: "0 0 22px",
+                    fontSize: 13,
+                    fontWeight: 500,
+                    letterSpacing: "0.3px",
+                    color: "var(--color-brown)",
+                  }}
+                >
+                  {sec.note}
+                </p>
+              )}
               <div
                 style={{
                   display: "grid",
@@ -115,20 +128,22 @@ export function MenuFilter() {
                       borderBottom: "1px dashed rgba(36,24,19,0.14)",
                     }}
                   >
-                    <Image
-                      src={it.img}
-                      alt={it.name}
-                      width={64}
-                      height={64}
-                      style={{
-                        width: 64,
-                        height: 64,
-                        flex: "none",
-                        borderRadius: 12,
-                        objectFit: "cover",
-                        boxShadow: "0 6px 16px rgba(40,24,12,0.18)",
-                      }}
-                    />
+                    {it.img && (
+                      <Image
+                        src={it.img}
+                        alt={it.name}
+                        width={64}
+                        height={64}
+                        style={{
+                          width: 64,
+                          height: 64,
+                          flex: "none",
+                          borderRadius: 12,
+                          objectFit: "cover",
+                          boxShadow: "0 6px 16px rgba(40,24,12,0.18)",
+                        }}
+                      />
+                    )}
                     <div style={{ flex: 1 }}>
                       <div
                         style={{
@@ -148,28 +163,32 @@ export function MenuFilter() {
                         >
                           {it.name}
                         </h3>
-                        <span
+                        {it.price && (
+                          <span
+                            style={{
+                              fontFamily: "var(--font-sans)",
+                              fontSize: 15,
+                              fontWeight: 600,
+                              color: "var(--color-brown)",
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            ${it.price}
+                          </span>
+                        )}
+                      </div>
+                      {it.desc && (
+                        <p
                           style={{
-                            fontFamily: "var(--font-sans)",
-                            fontSize: 15,
-                            fontWeight: 600,
-                            color: "var(--color-brown)",
-                            whiteSpace: "nowrap",
+                            fontSize: 13.5,
+                            lineHeight: 1.5,
+                            color: "rgba(36,24,19,0.6)",
+                            margin: "4px 0 0",
                           }}
                         >
-                          ${it.price}
-                        </span>
-                      </div>
-                      <p
-                        style={{
-                          fontSize: 13.5,
-                          lineHeight: 1.5,
-                          color: "rgba(36,24,19,0.6)",
-                          margin: "4px 0 0",
-                        }}
-                      >
-                        {it.desc}
-                      </p>
+                          {it.desc}
+                        </p>
+                      )}
                     </div>
                   </div>
                 ))}

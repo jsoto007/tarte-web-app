@@ -2,16 +2,21 @@
 
 export type MenuItem = {
   name: string;
-  desc: string;
-  /** Price in USD as a fixed string, e.g. "3.00". Rendered with a leading "$". */
-  price: string;
-  /** Public path, e.g. "/assets/menu/espresso.jpg". */
-  img: string;
+  /** Price in USD as a fixed string, e.g. "3.00". Rendered with a leading "$". Omit for items with no individual price (e.g. flavors). */
+  price?: string;
+  /** Optional one-line description. */
+  desc?: string;
+  /** Optional public path to a thumbnail, e.g. "/assets/menu/espresso.jpg". */
+  img?: string;
 };
 
 export type MenuSection = {
-  /** Doubles as the category name shown in the filter bar. */
+  /** Section heading shown on the menu, e.g. "Bagels". */
   title: string;
+  /** Top-level group used by the filter bar, e.g. "Food" or "Drinks". */
+  group: string;
+  /** Optional note under the heading, e.g. "With French fries on the side". */
+  note?: string;
   items: MenuItem[];
 };
 

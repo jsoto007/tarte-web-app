@@ -1,0 +1,159 @@
+[
+  {
+    "title": "Bagels",
+    "group": "Food",
+    "items": [
+      { "name": "Cream Cheese", "price": "4.00" },
+      { "name": "Lox", "price": "7.00" },
+      { "name": "Bacon, Egg & Cheese", "price": "7.00" }
+    ]
+  },
+  {
+    "title": "Tarts",
+    "group": "Food",
+    "items": [
+      { "name": "Chocolate Tart", "price": "9.00" },
+      { "name": "Tarte du Jour", "price": "9.00" },
+      { "name": "Raspberry Tarte", "price": "8.00" }
+    ]
+  },
+  {
+    "title": "Pastries",
+    "group": "Food",
+    "items": [
+      { "name": "Croissants", "price": "4.00" },
+      { "name": "Almond Croissants", "price": "4.50" },
+      { "name": "Pain au Chocolate", "price": "4.50" },
+      { "name": "Ham & Cheese", "price": "6.00" },
+      { "name": "Strawberry Danish", "price": "5.00" },
+      { "name": "Nutella Danish", "price": "5.00" }
+    ]
+  },
+  {
+    "title": "Sandwiches & Wraps",
+    "group": "Food",
+    "note": "With French fries on the side",
+    "items": [
+      { "name": "Burger", "price": "16.00" },
+      { "name": "Sausage & Peppers", "price": "16.00" },
+      { "name": "Philly Cheese Steak", "price": "18.00" },
+      { "name": "Steak & Eggs", "price": "20.00" },
+      { "name": "Grilled Chicken", "price": "16.00" },
+      { "name": "Bacon, Egg & Cheese (no fries)", "price": "10.00" }
+    ]
+  },
+  {
+    "title": "Focaccia",
+    "group": "Food",
+    "items": [
+      { "name": "Capresse", "price": "12.00" },
+      { "name": "Veggies Capresse", "price": "15.00" },
+      { "name": "Prosciutto", "price": "15.00" }
+    ]
+  },
+  {
+    "title": "Eggs Any Style & Omelets",
+    "group": "Food",
+    "note": "With home fries & toast on the side",
+    "items": [
+      { "name": "Ham & Mozzarella", "price": "12.00" },
+      { "name": "Sausage & Mozzarella", "price": "12.00" },
+      { "name": "Bacon & Mozzarella", "price": "12.00" }
+    ]
+  },
+  {
+    "title": "Byrek",
+    "group": "Food",
+    "items": [
+      { "name": "Meat", "price": "6.00" },
+      { "name": "Spinach", "price": "6.00" },
+      { "name": "Cheese", "price": "6.00" },
+      { "name": "Semolina", "price": "7.00" },
+      { "name": "Yogurt", "price": "2.50" }
+    ]
+  },
+  {
+    "title": "Dessert",
+    "group": "Food",
+    "items": [
+      { "name": "Cookies", "price": "2.50" },
+      { "name": "Creme Caramel", "price": "7.00" },
+      { "name": "Baklava", "price": "6.00" },
+      { "name": "Bundt Cake", "price": "6.00" },
+      { "name": "Bread Pudding", "price": "2.50" },
+      { "name": "Tricolor Cookies", "price": "2.50" },
+      { "name": "Napoleon Cake", "price": "8.00" }
+    ]
+  },
+  {
+    "title": "Breakfast",
+    "group": "Food",
+    "items": [{ "name": "Pancakes", "price": "12.00" }]
+  },
+  {
+    "title": "Hot",
+    "group": "Drinks",
+    "items": [
+      { "name": "House Drip", "price": "2.50" },
+      { "name": "Americano", "price": "3.00" },
+      { "name": "Espresso", "price": "2.50" },
+      { "name": "Double Espresso", "price": "3.50" },
+      { "name": "Macchiato", "price": "4.00" },
+      { "name": "Cortado", "price": "3.00" },
+      { "name": "Cappuccino", "price": "4.50" },
+      { "name": "Latte / Flat White", "price": "5.00" },
+      { "name": "Mocha", "price": "5.00" },
+      { "name": "Hot Chocolate", "price": "5.00" }
+    ]
+  },
+  {
+    "title": "Specialties",
+    "group": "Drinks",
+    "note": "Hot and cold +$0.50",
+    "items": [
+      { "name": "Nutella Latte", "price": "6.00" },
+      { "name": "Raspberry Mocha Latte", "price": "6.00" },
+      { "name": "Pistachio Latte", "price": "6.00" }
+    ]
+  },
+  {
+    "title": "Flavors",
+    "group": "Drinks",
+    "note": "Add to any drink +$0.50",
+    "items": [
+      { "name": "Vanilla" },
+      { "name": "Hazelnut" },
+      { "name": "Caramel" },
+      { "name": "Raspberry" },
+      { "name": "French Vanilla" },
+      { "name": "Spiced Brown Sugar" }
+    ]
+  },
+  {
+    "title": "Milks",
+    "group": "Drinks",
+    "items": [
+      { "name": "Oat Milk", "price": "0.75" },
+      { "name": "Almond Milk", "price": "0.75" },
+      { "name": "Cream", "price": "0.50" },
+      { "name": "Half & Half", "price": "0.25" },
+      { "name": "Skim" }
+    ]
+  },
+  {
+    "title": "Cold",
+    "group": "Drinks",
+    "items": [
+      { "name": "Freddo Cappuccino", "price": "6.00" },
+      { "name": "Freddo Espresso", "price": "5.00" },
+      { "name": "Iced Coffee", "price": "5.00" },
+      { "name": "Iced Latte", "price": "5.50" },
+      { "name": "Sodas", "price": "2.25" },
+      { "name": "Water Bottle", "price": "2.00" },
+      { "name": "Still Water", "price": "4.00" },
+      { "name": "Sparkling Water", "price": "4.50" },
+      { "name": "Honest", "price": "2.00" },
+      { "name": "Celsius or Spindrift", "price": "3.50" }
+    ]
+  }
+]

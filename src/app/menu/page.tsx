@@ -5,7 +5,7 @@ import { PageHeader } from "@/components/PageHeader";
 export const metadata: Metadata = {
   title: "The Menu",
   description:
-    "Browse Tarte's full menu — espresso, coffee, cold drinks, and fresh-baked bakery. Roasted, pulled, and baked in-house, with prices in USD.",
+    "Browse Tarte's full menu — bagels, tarts, pastries, sandwiches & wraps, focaccia, omelets, byrek, dessert, and hot & cold drinks. Made fresh, with prices in USD.",
 };
 
 export default function MenuPage() {
@@ -14,7 +14,7 @@ export default function MenuPage() {
       <PageHeader
         eyebrow="Coffee Shop · Bakes"
         title="The Menu"
-        subtitle="Roasted, pulled, and baked in-house. Prices in USD — ask our baristas about today’s single origin."
+        subtitle="Made fresh, baked in-house, and roasted with care. Prices in USD — ask our baristas about today’s specials."
       />
       <MenuFilter />
     </div>

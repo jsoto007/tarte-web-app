@@ -1,17 +1,18 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { menu, menuCategories } from "./menu";
+import { menu, menuGroups } from "./menu";
 import { gallery } from "./gallery";
 import { features, hours, specialties, stats, team } from "./site";
 
 const publicPath = (img: string) => join(process.cwd(), "public", img);
 
+// Only items that actually have a photo (most real menu items don't).
 const allImages = [
-  ...menu.flatMap((s) => s.items.map((i) => i.img)),
+  ...menu.flatMap((s) => s.items.map((i) => i.img)).filter(Boolean),
   ...gallery.map((g) => g.img),
   ...specialties.map((s) => s.img),
-];
+] as string[];
 
 describe("image assets", () => {
   it.each([...new Set(allImages)])("exists in /public: %s", (img) => {
@@ -21,29 +22,33 @@ describe("image assets", () => {
 });
 
 describe("menu data", () => {
-  it("has the expected categories", () => {
-    expect(menuCategories).toEqual([
-      "All",
-      "Espresso",
-      "Coffee",
-      "Cold",
-      "Bakery",
-    ]);
+  it("exposes All + the distinct groups as filter options", () => {
+    expect(menuGroups[0]).toBe("All");
+    expect(menuGroups).toContain("Food");
+    expect(menuGroups).toContain("Drinks");
   });
 
-  it("has 4 sections of 4 items each", () => {
-    expect(menu).toHaveLength(4);
+  it("has non-empty sections, each tagged with a known group", () => {
+    expect(menu.length).toBeGreaterThan(0);
     for (const section of menu) {
-      expect(section.items).toHaveLength(4);
+      expect(section.title.length).toBeGreaterThan(0);
+      expect(["Food", "Drinks"]).toContain(section.group);
+      expect(section.items.length).toBeGreaterThan(0);
     }
   });
 
-  it("formats every price as a 2-decimal string", () => {
+  it("includes both Food and Drinks sections", () => {
+    expect(menu.some((s) => s.group === "Food")).toBe(true);
+    expect(menu.some((s) => s.group === "Drinks")).toBe(true);
+  });
+
+  it("formats every present price as a 2-decimal string", () => {
     for (const section of menu) {
       for (const item of section.items) {
-        expect(item.price).toMatch(/^\d+\.\d{2}$/);
         expect(item.name.length).toBeGreaterThan(0);
-        expect(item.desc.length).toBeGreaterThan(0);
+        if (item.price !== undefined) {
+          expect(item.price).toMatch(/^\d+\.\d{2}$/);
+        }
       }
     }
   });
