@@ -1,0 +1,144 @@
+import type {
+  Feature,
+  HoursRow,
+  NavItem,
+  Specialty,
+  Stat,
+  TeamMember,
+} from "@/types";
+
+/** Primary navigation, in order. Active state is derived from the route. */
+export const navItems: NavItem[] = [
+  { label: "Home", href: "/" },
+  { label: "Menu", href: "/menu" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Our Story", href: "/about" },
+  { label: "Visit", href: "/visit" },
+];
+
+/** Brand + contact details, surfaced across the footer, Home, and Visit. */
+export const site = {
+  name: "Tarte",
+  fullName: "Tarte Coffee Shop & Bakes",
+  established: 2014,
+  year: 2026,
+  tagline: "Made slow, the way mornings should be.",
+  footerBlurb:
+    "Crafted coffee & cozy moments on the corner of Maple Row. Roasted, pulled, and baked in-house since 2014.",
+  newsletterBlurb: "Seasonal drinks & events, once a month.",
+  contact: {
+    addressLine: "128 Maple Row",
+    district: "Old Town District",
+    phone: "(555) 248–0114",
+    email: "hello@tartecoffee.co",
+  },
+} as const;
+
+/** Opening hours. Home uses the short labels; Visit uses the long labels. */
+export const hours: HoursRow[] = [
+  {
+    dayShort: "Mon – Fri",
+    dayLong: "Monday – Friday",
+    time: "7:00 AM – 7:00 PM",
+  },
+  { dayShort: "Saturday", dayLong: "Saturday", time: "8:00 AM – 8:00 PM" },
+  { dayShort: "Sunday", dayLong: "Sunday", time: "8:00 AM – 5:00 PM" },
+];
+
+/** Home: three feature cards. Emoji glyphs are placeholders per the handoff. */
+export const features: Feature[] = [
+  {
+    icon: "☕",
+    title: "Signature Coffee",
+    desc: "Single-origin beans, roasted in small batches and pulled by hand for a cleaner, sweeter cup.",
+    linkLabel: "Explore Coffee",
+    href: "/menu",
+  },
+  {
+    icon: "🥐",
+    title: "Fresh Bakery",
+    desc: "Croissants laminated overnight and pastries baked before sunrise — flour, butter, patience.",
+    linkLabel: "See the Bakes",
+    href: "/menu",
+  },
+  {
+    icon: "🥤",
+    title: "Specialty Drinks",
+    desc: "Seasonal cold brews, espresso tonics, and house syrups made fresh — coffee, reimagined.",
+    linkLabel: "View Drinks",
+    href: "/menu",
+  },
+];
+
+/** Home: "Our Café Specialties" image cards. */
+export const specialties: Specialty[] = [
+  {
+    title: "Espresso Bar",
+    caption: "Watch each shot pulled to order at the marble bar.",
+    img: "/assets/menu/cappuccino.jpg",
+  },
+  {
+    title: "Fresh Pastries",
+    caption: "Hand-laminated croissants and tarts, baked at dawn.",
+    img: "/assets/menu/croissantstable.jpg",
+  },
+  {
+    title: "Breakfast Plates",
+    caption: "Slow mornings deserve something warm and unhurried.",
+    img: "/assets/menu/croissantcoaster.jpg",
+  },
+  {
+    title: "Cold Brew Bar",
+    caption: "Steeped 18 hours for a smooth, low-acid pour.",
+    img: "/assets/menu/coldbrew.jpg",
+  },
+  {
+    title: "Dessert of the Day",
+    caption: "A rotating cake or tart from the pastry case.",
+    img: "/assets/menu/breadplate.jpg",
+  },
+  {
+    title: "Beans to Take Home",
+    caption: "Retail bags of our current single-origin roast.",
+    img: "/assets/menu/beans.jpg",
+  },
+];
+
+/** About: stat row. */
+export const stats: Stat[] = [
+  { value: "2014", label: "Founded" },
+  { value: "3", label: "Roasts in rotation" },
+  { value: "5AM", label: "Bakes begin" },
+  { value: "∞", label: "Refills on the house" },
+];
+
+/** About: team. Gradient portraits are intentional placeholders per the handoff. */
+export const team: TeamMember[] = [
+  {
+    name: "Mara Voss",
+    role: "Co-founder · Head Roaster",
+    gradient: "linear-gradient(140deg, #d2a468, #7c5230)",
+  },
+  {
+    name: "Eli Brandt",
+    role: "Co-founder · Head Baker",
+    gradient: "linear-gradient(140deg, #9a6a44, #3a2418)",
+  },
+  {
+    name: "Priya Nair",
+    role: "Lead Barista",
+    gradient: "linear-gradient(140deg, #e7d0a8, #a07a52)",
+  },
+];
+
+/** Home story-teaser paragraphs. */
+export const storyTeaser: string[] = [
+  "Tarte began in 2014 as a single cart and a stubborn belief that a good cup is worth slowing down for. Today we roast our own beans, laminate our own dough, and still greet most regulars by name.",
+  "Everything is made in small batches, the unhurried way — because the best mornings can’t be rushed.",
+];
+
+/** About-page prose paragraphs. */
+export const aboutProse: string[] = [
+  "Tarte started as a single cart on the corner of Maple Row, run by two friends who couldn’t find a cup they loved. Ten years on, we roast our own beans, laminate our own dough, and still pull every shot by hand.",
+  "We believe the best mornings are unhurried — so we make everything in small batches, the slow way, and we save a seat for whoever needs one.",
+];
