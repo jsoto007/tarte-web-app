@@ -1,0 +1,14 @@
+# Netlify configuration for the Tarte marketing site (Next.js).
+# The official Next.js runtime handles the build output, routing, and image
+# optimization. Connect this repo in the Netlify dashboard — these settings are
+# auto-detected, but pinned here for reproducibility.
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
