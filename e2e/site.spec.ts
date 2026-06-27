@@ -1,0 +1,149 @@
+import { test, expect } from "@playwright/test";
+
+test.describe("navigation", () => {
+  test("moves between pages and reflects the active route", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(
+      "Crafted Coffee",
+    );
+
+    const navLinks = page.locator(".nav__links");
+    await navLinks.getByRole("link", { name: "Menu", exact: true }).click();
+    await expect(page).toHaveURL("/menu");
+    await expect(
+      page.getByRole("heading", { level: 1, name: "The Menu" }),
+    ).toBeVisible();
+    await expect(page.locator('.nav__links a[aria-current="page"]')).toHaveText(
+      "Menu",
+    );
+
+    await navLinks.getByRole("link", { name: "Gallery", exact: true }).click();
+    await expect(page).toHaveURL("/gallery");
+    await expect(
+      page.getByRole("heading", { level: 1, name: "The Gallery" }),
+    ).toBeVisible();
+
+    await navLinks.getByRole("link", { name: "Our Story" }).click();
+    await expect(page).toHaveURL("/about");
+    await expect(
+      page.getByRole("heading", { level: 1, name: "Our Story" }),
+    ).toBeVisible();
+
+    await navLinks.getByRole("link", { name: "Visit", exact: true }).click();
+    await expect(page).toHaveURL("/visit");
+    await expect(
+      page.getByRole("heading", { level: 1, name: "Visit Tarte" }),
+    ).toBeVisible();
+  });
+});
+
+test.describe("menu filter", () => {
+  test("shows only the selected category", async ({ page }) => {
+    await page.goto("/menu");
+    await expect(
+      page.getByRole("heading", { level: 2, name: "Espresso" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("heading", { level: 2, name: "Bakery" }),
+    ).toBeVisible();
+
+    await page.getByRole("button", { name: "Espresso", exact: true }).click();
+    await expect(
+      page.getByRole("heading", { level: 2, name: "Espresso" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("heading", { level: 2, name: "Bakery" }),
+    ).toHaveCount(0);
+
+    await page.getByRole("button", { name: "All", exact: true }).click();
+    await expect(
+      page.getByRole("heading", { level: 2, name: "Bakery" }),
+    ).toBeVisible();
+  });
+});
+
+test.describe("gallery lightbox", () => {
+  test("opens, navigates with the keyboard, and closes", async ({ page }) => {
+    await page.goto("/gallery");
+    await page.locator(".gallery-tile").first().click();
+
+    const dialog = page.getByRole("dialog");
+    await expect(dialog).toBeVisible();
+    await expect(dialog).toHaveAttribute("aria-label", /Morning Pour/);
+
+    await page.keyboard.press("ArrowRight");
+    await expect(dialog).toHaveAttribute("aria-label", /Fresh Croissants/);
+
+    await page.keyboard.press("Escape");
+    await expect(page.getByRole("dialog")).toHaveCount(0);
+  });
+});
+
+test.describe("reservation form", () => {
+  test("validates required fields then submits", async ({ page }) => {
+    // Stand in for Netlify Forms (absent on a plain `next start`).
+    await page.route("**/__forms.html", (route) =>
+      route.fulfill({ status: 200, body: "OK" }),
+    );
+    await page.goto("/visit");
+    const form = page.locator('form[name="reservation"]');
+
+    await form.getByRole("button", { name: "Request Reservation" }).click();
+    await expect(form.getByText("Please tell us your name.")).toBeVisible();
+    await expect(form.getByRole("alert")).toHaveCount(5);
+
+    await form.getByLabel("Name").fill("Jane Rivera");
+    await form.getByLabel("Guests").fill("2");
+    await form.getByLabel("Date").fill("2026-12-31");
+    await form.getByLabel("Time").fill("18:30");
+    await form.getByLabel("Email").fill("jane@example.com");
+    await form.getByRole("button", { name: "Request Reservation" }).click();
+
+    await expect(page.getByText("Request received")).toBeVisible();
+  });
+});
+
+test.describe("newsletter form", () => {
+  test("rejects an invalid email then accepts a valid one", async ({ page }) => {
+    await page.route("**/__forms.html", (route) =>
+      route.fulfill({ status: 200, body: "OK" }),
+    );
+    await page.goto("/");
+    const form = page.locator('form[name="newsletter"]');
+
+    await form.getByRole("button", { name: "Join" }).click();
+    await expect(form.getByRole("alert")).toContainText("valid email");
+
+    await form.getByLabel("Email address").fill("fan@example.com");
+    await form.getByRole("button", { name: "Join" }).click();
+    await expect(page.getByText(/on the list/)).toBeVisible();
+  });
+});
+
+test.describe("responsive nav", () => {
+  test("hamburger menu opens and navigates on mobile", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto("/");
+    await expect(page.locator(".nav__links")).toBeHidden();
+
+    await page.locator(".nav__toggle").click();
+    const panel = page.locator("#mobile-menu");
+    await expect(panel).toBeVisible();
+
+    await panel.getByRole("link", { name: "Gallery" }).click();
+    await expect(page).toHaveURL("/gallery");
+  });
+});
+
+const routes = ["/", "/menu", "/gallery", "/about", "/visit"];
+for (const route of routes) {
+  test(`no console errors on ${route}`, async ({ page }) => {
+    const errors: string[] = [];
+    page.on("console", (m) => {
+      if (m.type() === "error") errors.push(m.text());
+    });
+    page.on("pageerror", (e) => errors.push(e.message));
+    await page.goto(route, { waitUntil: "load" });
+    expect(errors).toEqual([]);
+  });
+}
