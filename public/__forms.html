@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tarte forms</title>
+  </head>
+  <body>
+    <!--
+      Static form definitions so Netlify Forms detects them at build time.
+      The React components (NewsletterForm, ReservationForm) POST here with a
+      matching `form-name`. No backend required — submissions appear in the
+      Netlify dashboard under Forms. Safe to leave; this page is not linked.
+    -->
+    <form name="newsletter" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="newsletter" />
+      <input name="bot-field" />
+      <input type="email" name="email" />
+    </form>
+
+    <form name="reservation" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="reservation" />
+      <input name="bot-field" />
+      <input type="text" name="name" />
+      <input type="number" name="guests" />
+      <input type="date" name="date" />
+      <input type="time" name="time" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+    </form>
+  </body>
+</html>
