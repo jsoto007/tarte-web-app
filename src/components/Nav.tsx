@@ -64,14 +64,7 @@ export function Nav() {
         </Link>
 
         {/* Desktop links */}
-        <div
-          className="nav__links"
-          style={{
-            alignItems: "center",
-            gap: "clamp(8px, 2vw, 30px)",
-            display: "flex",
-          }}
-        >
+        <div className="nav__links">
           {navItems.map((item) => {
             const active = isActive(item.href);
             return (

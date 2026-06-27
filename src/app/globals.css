@@ -68,6 +68,31 @@ body {
   border-radius: 4px;
 }
 
+/* The <main> landmark is focused by the skip link but shouldn't show a ring */
+main:focus {
+  outline: none;
+}
+
+/* Skip-to-content link — visible only when focused */
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 100;
+  padding: 10px 18px;
+  border-radius: 100px;
+  background: var(--color-ink);
+  color: var(--color-cream-text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 12px;
+}
+
 /* ============================================================
    Keyframes
    ============================================================ */
@@ -195,6 +220,11 @@ body {
    Navigation — desktop matches the design exactly; a hamburger
    menu is added below 768px (the prototype has none).
    ============================================================ */
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 2vw, 30px);
+}
 .nav__toggle {
   display: none;
   align-items: center;
