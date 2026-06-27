@@ -1,26 +1,208 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Tarte — Design Tokens
+   The brand gold lives in ONE place: --color-accent.
+   Change it to re-skin the whole site (alternates: #b5824e,
+   #a9805c, #7c9a6f per the design handoff).
+   ============================================================ */
+@theme {
+  /* Surfaces */
+  --color-cream: #f7f1e8; /* page background */
+  --color-card: #fffdf9; /* cards, panels */
+  --color-tan: #f1e3cd; /* icon chips, CTA band start */
+  --color-tan-2: #e6d4b6; /* CTA band end */
+  --color-footer: #1d130d; /* footer */
+  --color-body-root: #2a1c14; /* body behind app */
+
+  /* Text */
+  --color-ink: #241813; /* primary text, dark buttons */
+  --color-cream-text: #f3e9da; /* text on dark */
+  --color-cream-text-2: #f8f1e5; /* hero headline */
+
+  /* Accents */
+  --color-accent: #c79a5f; /* PRIMARY brand gold */
+  --color-accent-light: #e6cfa6; /* hero italic, eyebrow on dark */
+  --color-accent-muted: #d8bd97; /* eyebrow labels on dark */
+  --color-brown: #95622f; /* inline links, prices, eyebrow on light */
+
+  /* Fonts (wired to next/font variables in layout.tsx) */
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-outfit), "Outfit", system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/* Convenience alias so inline styles can read var(--accent) like the prototype */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --accent: var(--color-accent);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--color-ink);
+}
+
+/* Visible focus ring for keyboard users (a11y) */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   Keyframes
+   ============================================================ */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.5s ease both;
+}
+
+/* Instagram marquee (Home + reused) */
+.marquee {
+  overflow: hidden;
+}
+.marquee__track {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .marquee__track {
+    animation: none !important;
+  }
+}
+
+/* ============================================================
+   Buttons — the prototype had no hover states; the handoff
+   asks us to add tasteful ones consistent with the palette.
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  border-radius: 100px;
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--accent {
+  background: var(--accent);
+  color: var(--color-ink);
+}
+.btn--accent:hover {
+  background: color-mix(in srgb, var(--accent) 88%, #000);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(58, 36, 24, 0.28);
+}
+
+.btn--dark {
+  background: var(--color-ink);
+  color: var(--color-cream-text);
+}
+.btn--dark:hover {
+  background: #160d08;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
+}
+
+/* Translucent outline on dark imagery (hero) */
+.btn--outline-light {
+  background: rgba(248, 241, 229, 0.08);
+  color: var(--color-cream-text-2);
+  border-color: rgba(248, 241, 229, 0.4);
+  backdrop-filter: blur(6px);
+}
+.btn--outline-light:hover {
+  background: rgba(248, 241, 229, 0.18);
+  transform: translateY(-2px);
+}
+
+/* Outline on light backgrounds */
+.btn--outline-dark {
+  background: transparent;
+  color: var(--color-ink);
+  border-color: rgba(36, 24, 19, 0.25);
+}
+.btn--outline-dark:hover {
+  background: var(--color-ink);
+  color: var(--color-cream-text);
+  border-color: var(--color-ink);
+}
+
+/* Inline text link with accent underline */
+.link-accent {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: var(--color-brown);
+  border-bottom: 1.5px solid var(--accent);
+  transition: color 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+.link-accent:hover {
+  color: var(--accent);
 }
