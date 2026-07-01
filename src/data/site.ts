@@ -14,6 +14,14 @@ import siteData from "../../content/site.json";
  * used on Home / About — no code changes needed.
  */
 export const site = siteData;
+export const social = siteData.social;
+export const geo = siteData.geo;
+export const fullAddress = `${site.contact.addressLine}, ${site.contact.district}`;
+export const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+  fullAddress,
+)}`;
+export const phoneHref = `tel:${site.contact.phone.replace(/[^\d+]/g, "")}`;
+export const emailHref = `mailto:${site.contact.email}`;
 
 export const navItems = siteData.nav as NavItem[];
 export const hours = siteData.hours as HoursRow[];

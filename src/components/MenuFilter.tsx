@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { galleryCategories } from "@/data/gallery";
 import { menu, menuGroups } from "@/data/menu";
 import { Button } from "./Button";
 
@@ -9,6 +10,7 @@ export function MenuFilter() {
   const [cat, setCat] = useState<string>("All");
   const visibleSections =
     cat === "All" ? menu : menu.filter((s) => s.group === cat);
+  const galleryCategorySet = new Set(galleryCategories);
 
   return (
     <>
@@ -72,8 +74,9 @@ export function MenuFilter() {
               <div
                 style={{
                   display: "flex",
-                  alignItems: "baseline",
-                  gap: 18,
+                  alignItems: "center",
+                  gap: 14,
+                  flexWrap: "wrap",
                   marginBottom: sec.note ? 8 : 28,
                 }}
               >
@@ -89,6 +92,23 @@ export function MenuFilter() {
                 >
                   {sec.title}
                 </h2>
+                {sec.galleryCategory &&
+                  galleryCategorySet.has(sec.galleryCategory) && (
+                    <Button
+                      href={`/gallery?category=${encodeURIComponent(
+                        sec.galleryCategory,
+                      )}`}
+                      variant="outline-dark"
+                      style={{
+                        padding: "8px 14px",
+                        fontSize: 11,
+                        letterSpacing: "1.2px",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      View in Gallery
+                    </Button>
+                  )}
                 <div
                   style={{
                     flex: 1,
@@ -174,6 +194,7 @@ export function MenuFilter() {
                             }}
                           >
                             ${it.price}
+                            {it.priceSuffix}
                           </span>
                         )}
                       </div>

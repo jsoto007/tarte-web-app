@@ -1,16 +1,31 @@
 import type { Metadata } from "next";
 import { Eyebrow } from "@/components/Eyebrow";
-import { aboutProse, stats, team } from "@/data/site";
+import { JsonLdScript } from "@/components/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
+import { aboutProse, stats } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Our Story",
   description:
-    "From a single cart on Maple Row to a neighborhood roastery — the story of Tarte, founded in 2014, and the people behind the bar.",
+    "The story behind Tarte: a welcoming coffee shop built around great coffee, fresh pastries, family meaning, and community.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "Our Story · Tarte",
+    description:
+      "The story behind Tarte: a welcoming coffee shop built around great coffee, fresh pastries, family meaning, and community.",
+    url: "/about",
+  },
 };
 
 export default function AboutPage() {
   return (
     <div className="animate-fade-up">
+      <JsonLdScript
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Our Story", path: "/about" },
+        ])}
+      />
       {/* Hero header */}
       <header
         style={{
@@ -26,7 +41,7 @@ export default function AboutPage() {
         }}
       >
         <div style={{ position: "relative", zIndex: 2, maxWidth: 640 }}>
-          <Eyebrow color="var(--color-accent-muted)">Since 2014</Eyebrow>
+          <Eyebrow color="var(--color-accent-muted)">Since 2025</Eyebrow>
           <h1
             style={{
               fontFamily: "var(--font-display)",
@@ -49,7 +64,7 @@ export default function AboutPage() {
               fontFamily: "var(--font-display)",
             }}
           >
-            “A good cup is worth slowing down for.”
+            “A welcoming space for coffee, pastries, and connection.”
           </p>
         </div>
       </header>
@@ -123,70 +138,6 @@ export default function AboutPage() {
               </div>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* Team */}
-      <section
-        style={{
-          padding:
-            "clamp(40px, 5vw, 70px) clamp(20px, 5vw, 64px) clamp(60px, 7vw, 100px)",
-        }}
-      >
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(30px, 4vw, 46px)",
-              fontWeight: 600,
-              textAlign: "center",
-              margin: "0 0 40px",
-              letterSpacing: "-0.5px",
-            }}
-          >
-            The people behind the bar
-          </h2>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-              gap: 26,
-            }}
-          >
-            {team.map((member) => (
-              <div key={member.name} style={{ textAlign: "center" }}>
-                <div
-                  style={{
-                    aspectRatio: "1",
-                    borderRadius: 18,
-                    background: member.gradient,
-                    marginBottom: 16,
-                    boxShadow: "inset 0 -24px 50px rgba(0,0,0,0.25)",
-                  }}
-                />
-                <h3
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: 24,
-                    fontWeight: 600,
-                    margin: 0,
-                  }}
-                >
-                  {member.name}
-                </h3>
-                <p
-                  style={{
-                    fontSize: 13.5,
-                    color: "rgba(36,24,19,0.6)",
-                    margin: "4px 0 0",
-                    letterSpacing: "0.4px",
-                  }}
-                >
-                  {member.role}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
     </div>

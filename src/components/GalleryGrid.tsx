@@ -1,14 +1,50 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { gallery } from "@/data/gallery";
+import { useRouter, useSearchParams } from "next/navigation";
+import { createPortal } from "react-dom";
+import {
+  type CSSProperties,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { gallery, galleryCategories } from "@/data/gallery";
+import { Button } from "./Button";
+import { InstagramIcon } from "./InstagramIcon";
+
+const instagramHref = "https://www.instagram.com/tartebakes/";
 
 export function GalleryGrid() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [photoRatio, setPhotoRatio] = useState(1);
   const triggerRef = useRef<HTMLElement | null>(null);
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
+  const requestedCategory = searchParams.get("category") ?? "All";
+  const category = galleryCategories.includes(requestedCategory)
+    ? requestedCategory
+    : "All";
+  const filteredGallery = useMemo(
+    () =>
+      category === "All"
+        ? gallery
+        : gallery.filter((item) => item.category === category),
+    [category],
+  );
+
+  const selectCategory = (nextCategory: string) => {
+    setOpenIndex(null);
+    const href =
+      nextCategory === "All"
+        ? "/gallery"
+        : `/gallery?category=${encodeURIComponent(nextCategory)}`;
+    router.replace(href, { scroll: false });
+  };
 
   const open = (i: number) => {
     triggerRef.current = document.activeElement as HTMLElement;
@@ -20,9 +56,11 @@ export function GalleryGrid() {
   }, []);
   const step = useCallback((dir: 1 | -1) => {
     setOpenIndex((v) =>
-      v === null ? v : (v + dir + gallery.length) % gallery.length,
+      v === null
+        ? v
+        : (v + dir + filteredGallery.length) % filteredGallery.length,
     );
-  }, []);
+  }, [filteredGallery.length]);
 
   useEffect(() => {
     if (openIndex === null) return;
@@ -35,7 +73,7 @@ export function GalleryGrid() {
       else if (e.key === "ArrowLeft") step(-1);
       else if (e.key === "Tab") {
         const focusables =
-          dialogRef.current?.querySelectorAll<HTMLElement>("button");
+          dialogRef.current?.querySelectorAll<HTMLElement>("button, a[href]");
         if (!focusables || focusables.length === 0) return;
         const first = focusables[0];
         const last = focusables[focusables.length - 1];
@@ -56,7 +94,10 @@ export function GalleryGrid() {
     };
   }, [openIndex, close, step]);
 
-  const active = openIndex === null ? null : gallery[openIndex];
+  const active =
+    openIndex === null || openIndex >= filteredGallery.length
+      ? null
+      : filteredGallery[openIndex];
 
   return (
     <section
@@ -65,6 +106,31 @@ export function GalleryGrid() {
           "clamp(40px, 5vw, 70px) clamp(20px, 5vw, 64px) clamp(60px, 7vw, 100px)",
       }}
     >
+      <div
+        role="group"
+        aria-label="Filter gallery by category"
+        style={{
+          maxWidth: 1180,
+          margin: "0 auto clamp(26px, 4vw, 42px)",
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: 10,
+        }}
+      >
+        {galleryCategories.map((item) => (
+          <button
+            key={item}
+            type="button"
+            className="cat-pill"
+            aria-pressed={category === item}
+            onClick={() => selectCategory(item)}
+          >
+            {item}
+          </button>
+        ))}
+      </div>
+
       <div
         style={{
           maxWidth: 1180,
@@ -75,7 +141,7 @@ export function GalleryGrid() {
           gap: 16,
         }}
       >
-        {gallery.map((g, i) => (
+        {filteredGallery.map((g, i) => (
           <button
             key={g.label}
             type="button"
@@ -116,6 +182,23 @@ export function GalleryGrid() {
               {g.label}
             </span>
             <span
+              style={{
+                position: "absolute",
+                top: 14,
+                left: 16,
+                padding: "5px 9px",
+                borderRadius: 999,
+                background: "rgba(255,253,249,0.88)",
+                color: "var(--color-brown)",
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: "1px",
+                textTransform: "uppercase",
+              }}
+            >
+              {g.category}
+            </span>
+            <span
               aria-hidden
               style={{
                 position: "absolute",
@@ -132,69 +215,42 @@ export function GalleryGrid() {
         ))}
       </div>
 
-      {/* Lightbox */}
-      {active && openIndex !== null && (
-        <div
-          className="lightbox"
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${active.label} — image ${openIndex + 1} of ${gallery.length}`}
-          ref={dialogRef}
-          onClick={(e) => {
-            if (e.target === e.currentTarget) close();
-          }}
+      {/* More photos → Instagram */}
+      <div style={{ textAlign: "center", marginTop: "clamp(36px, 5vw, 56px)" }}>
+        <Button
+          href={instagramHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          variant="dark"
+          style={{ padding: "14px 30px" }}
         >
-          <button
-            type="button"
-            ref={closeBtnRef}
-            className="lightbox__btn lightbox__close"
-            onClick={close}
-            aria-label="Close"
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              aria-hidden
-            >
-              <line x1="5" y1="5" x2="19" y2="19" />
-              <line x1="19" y1="5" x2="5" y2="19" />
-            </svg>
-          </button>
+          <InstagramIcon />
+          More Photos on Instagram
+        </Button>
+      </div>
 
+      {/* Lightbox — portaled to <body> so it always centers to the viewport.
+          (The .animate-fade-up ancestor keeps a transform, which would
+          otherwise trap this position:fixed overlay inside the page.) */}
+      {active &&
+        openIndex !== null &&
+        createPortal(
           <div
-            style={{
-              position: "relative",
-              width: "min(90vw, 1000px)",
-              height: "78vh",
-            }}
-          >
-            <Image
-              src={active.img}
-              alt={active.label}
-              fill
-              sizes="90vw"
-              style={{ objectFit: "contain", borderRadius: 12 }}
-            />
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 18,
-              color: "var(--color-cream-text)",
+            className="lightbox"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${active.label} — image ${openIndex + 1} of ${filteredGallery.length}`}
+            ref={dialogRef}
+            onClick={(e) => {
+              if (e.target === e.currentTarget) close();
             }}
           >
             <button
               type="button"
-              className="lightbox__btn"
-              onClick={() => step(-1)}
-              aria-label="Previous image"
+              ref={closeBtnRef}
+              className="lightbox__btn lightbox__close"
+              onClick={close}
+              aria-label="Close"
             >
               <svg
                 width="20"
@@ -204,47 +260,107 @@ export function GalleryGrid() {
                 stroke="currentColor"
                 strokeWidth="1.8"
                 strokeLinecap="round"
-                strokeLinejoin="round"
                 aria-hidden
               >
-                <polyline points="15 18 9 12 15 6" />
+                <line x1="5" y1="5" x2="19" y2="19" />
+                <line x1="19" y1="5" x2="5" y2="19" />
               </svg>
             </button>
-            <span
+
+            <div
+              className="lightbox__photo"
+              style={{ "--lb-ar": photoRatio } as CSSProperties}
+            >
+              <Image
+                src={active.img}
+                alt={active.label}
+                fill
+                sizes="90vw"
+                style={{ objectFit: "cover" }}
+                onLoad={(e) => {
+                  const img = e.currentTarget;
+                  if (img.naturalWidth && img.naturalHeight) {
+                    setPhotoRatio(img.naturalWidth / img.naturalHeight);
+                  }
+                }}
+              />
+            </div>
+
+            <Button
+              href={instagramHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="outline-light"
+              className="lightbox__instagram"
+            >
+              <InstagramIcon />
+              View More on Instagram
+            </Button>
+
+            <div
               style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 12,
-                letterSpacing: "1.5px",
-                textTransform: "uppercase",
-                minWidth: 160,
-                textAlign: "center",
+                display: "flex",
+                alignItems: "center",
+                gap: 18,
+                color: "var(--color-cream-text)",
               }}
             >
-              {active.label}
-            </span>
-            <button
-              type="button"
-              className="lightbox__btn"
-              onClick={() => step(1)}
-              aria-label="Next image"
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden
+              <button
+                type="button"
+                className="lightbox__btn"
+                onClick={() => step(-1)}
+                aria-label="Previous image"
               >
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      )}
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+              <span
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 12,
+                  letterSpacing: "1.5px",
+                  textTransform: "uppercase",
+                  minWidth: 160,
+                  textAlign: "center",
+                }}
+              >
+                {active.label}
+              </span>
+              <button
+                type="button"
+                className="lightbox__btn"
+                onClick={() => step(1)}
+                aria-label="Next image"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+            </div>
+          </div>,
+          document.body,
+        )}
     </section>
   );
 }

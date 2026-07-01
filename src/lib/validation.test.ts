@@ -59,8 +59,8 @@ describe("isValidGuests", () => {
 
 describe("encodeForm", () => {
   it("URL-encodes keys and values", () => {
-    expect(encodeForm({ "form-name": "newsletter", email: "a@b.co" })).toBe(
-      "form-name=newsletter&email=a%40b.co",
+    expect(encodeForm({ "form-name": "reservation", email: "a@b.co" })).toBe(
+      "form-name=reservation&email=a%40b.co",
     );
     expect(encodeForm({ msg: "a & b" })).toBe("msg=a%20%26%20b");
   });

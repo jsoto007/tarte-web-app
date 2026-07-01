@@ -2,6 +2,7 @@
   {
     "title": "Bagels",
     "group": "Food",
+    "galleryCategory": "Breakfast",
     "items": [
       { "name": "Cream Cheese", "price": "4.00" },
       { "name": "Lox", "price": "7.00" },
@@ -11,6 +12,7 @@
   {
     "title": "Tarts",
     "group": "Food",
+    "galleryCategory": "Pastries",
     "items": [
       { "name": "Chocolate Tart", "price": "9.00" },
       { "name": "Tarte du Jour", "price": "9.00" },
@@ -20,6 +22,7 @@
   {
     "title": "Pastries",
     "group": "Food",
+    "galleryCategory": "Pastries",
     "items": [
       { "name": "Croissants", "price": "4.00" },
       { "name": "Almond Croissants", "price": "4.50" },
@@ -30,9 +33,24 @@
     ]
   },
   {
+    "title": "Specialty Cakes",
+    "group": "Food",
+    "galleryCategory": "Specialty Cakes",
+    "note": "Made to order. Please contact us ahead of your event date.",
+    "items": [
+      {
+        "name": "Custom Specialty Cake",
+        "price": "9.00",
+        "priceSuffix": " / person",
+        "desc": "Made to order for birthdays, gatherings, and special occasions."
+      }
+    ]
+  },
+  {
     "title": "Sandwiches & Wraps",
     "group": "Food",
-    "note": "With French fries on the side",
+    "galleryCategory": "Sandwiches",
+    "note": "On our homemade bread, baked fresh daily. With French fries on the side.",
     "items": [
       { "name": "Burger", "price": "16.00" },
       { "name": "Sausage & Peppers", "price": "16.00" },
@@ -45,6 +63,8 @@
   {
     "title": "Focaccia",
     "group": "Food",
+    "galleryCategory": "Sandwiches",
+    "note": "Baked fresh on our homemade focaccia.",
     "items": [
       { "name": "Capresse", "price": "12.00" },
       { "name": "Veggies Capresse", "price": "15.00" },
@@ -54,7 +74,8 @@
   {
     "title": "Eggs Any Style & Omelets",
     "group": "Food",
-    "note": "With home fries & toast on the side",
+    "galleryCategory": "Breakfast",
+    "note": "Made hot and fresh with real ingredients. With home fries & toast on the side.",
     "items": [
       { "name": "Ham & Mozzarella", "price": "12.00" },
       { "name": "Sausage & Mozzarella", "price": "12.00" },
@@ -64,6 +85,7 @@
   {
     "title": "Byrek",
     "group": "Food",
+    "galleryCategory": "Pastries",
     "items": [
       { "name": "Meat", "price": "6.00" },
       { "name": "Spinach", "price": "6.00" },
@@ -75,6 +97,7 @@
   {
     "title": "Dessert",
     "group": "Food",
+    "galleryCategory": "Specialty Cakes",
     "items": [
       { "name": "Cookies", "price": "2.50" },
       { "name": "Creme Caramel", "price": "7.00" },
@@ -88,11 +111,14 @@
   {
     "title": "Breakfast",
     "group": "Food",
+    "galleryCategory": "Breakfast",
+    "note": "Served hot and fresh every morning, made with real ingredients.",
     "items": [{ "name": "Pancakes", "price": "12.00" }]
   },
   {
     "title": "Hot",
     "group": "Drinks",
+    "galleryCategory": "Coffee",
     "items": [
       { "name": "House Drip", "price": "2.50" },
       { "name": "Americano", "price": "3.00" },
@@ -109,6 +135,7 @@
   {
     "title": "Specialties",
     "group": "Drinks",
+    "galleryCategory": "Coffee",
     "note": "Hot and cold +$0.50",
     "items": [
       { "name": "Nutella Latte", "price": "6.00" },
@@ -119,6 +146,7 @@
   {
     "title": "Flavors",
     "group": "Drinks",
+    "galleryCategory": "Coffee",
     "note": "Add to any drink +$0.50",
     "items": [
       { "name": "Vanilla" },
@@ -132,6 +160,7 @@
   {
     "title": "Milks",
     "group": "Drinks",
+    "galleryCategory": "Coffee",
     "items": [
       { "name": "Oat Milk", "price": "0.75" },
       { "name": "Almond Milk", "price": "0.75" },
@@ -143,6 +172,7 @@
   {
     "title": "Cold",
     "group": "Drinks",
+    "galleryCategory": "Coffee",
     "items": [
       { "name": "Freddo Cappuccino", "price": "6.00" },
       { "name": "Freddo Espresso", "price": "5.00" },

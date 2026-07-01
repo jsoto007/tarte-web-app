@@ -216,6 +216,13 @@ main:focus {
   border-color: var(--color-ink);
 }
 
+.instagram-handle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  text-transform: none;
+}
+
 /* ============================================================
    Navigation — desktop matches the design exactly; a hamburger
    menu is added below 768px (the prototype has none).
@@ -322,7 +329,28 @@ main:focus {
   gap: 16px;
   padding: clamp(16px, 4vw, 48px);
   background: rgba(14, 9, 5, 0.9);
+  -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
+}
+/* The box is sized to the photo's own aspect ratio (--lb-ar, set from the
+   image's natural size in JS) so the rounded corners land on the photo itself,
+   not on empty letterbox space. The width caps to whichever of the max width /
+   max height fits. The plain-vh line is a fallback for Safari < 15.4, which
+   doesn't support dvh and would otherwise drop the whole declaration. */
+.lightbox__photo {
+  position: relative;
+  aspect-ratio: var(--lb-ar, 1);
+  width: min(90vw, calc(72vh * var(--lb-ar, 1)), 1000px);
+  width: min(90vw, calc(min(72vh, calc(100dvh - 210px)) * var(--lb-ar, 1)), 1000px);
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: clamp(18px, 2.4vw, 28px);
+}
+.lightbox__photo img {
+  border-radius: inherit;
+}
+.lightbox__instagram {
+  padding: 13px 24px;
 }
 .lightbox__btn {
   display: inline-flex;
@@ -344,6 +372,23 @@ main:focus {
   position: absolute;
   top: clamp(12px, 3vw, 28px);
   right: clamp(12px, 3vw, 28px);
+}
+
+@media (max-width: 640px) {
+  .lightbox {
+    gap: 12px;
+    padding: 64px 14px 22px;
+  }
+
+  .lightbox__photo {
+    width: min(100%, calc(64vh * var(--lb-ar, 1)));
+    width: min(100%, calc(min(64vh, calc(100dvh - 230px)) * var(--lb-ar, 1)));
+  }
+
+  .lightbox__instagram {
+    width: min(100%, 280px);
+    padding-inline: 18px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -417,6 +462,23 @@ main:focus {
 }
 
 /* Footer navigation links */
+.footer__grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(260px, 1.35fr) repeat(3, minmax(145px, 0.75fr));
+  gap: clamp(28px, 4vw, 48px);
+  align-items: start;
+}
+.footer__brand {
+  min-width: 0;
+}
+.footer__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  margin-top: 20px;
+}
 .footer-link {
   background: none;
   border: none;
@@ -432,4 +494,37 @@ main:focus {
 }
 .footer-link:hover {
   color: var(--color-cream-text);
+}
+.footer__hours {
+  display: grid;
+  gap: 10px;
+}
+.footer__hours-row {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.footer__hours-row span:first-child {
+  color: var(--color-cream-text);
+}
+.footer__hours-row span:last-child {
+  color: rgba(243, 233, 218, 0.66);
+}
+
+@media (max-width: 900px) {
+  .footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer__brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 620px) {
+  .footer__grid {
+    grid-template-columns: 1fr;
+  }
 }
