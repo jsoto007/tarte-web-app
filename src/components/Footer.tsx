@@ -156,6 +156,17 @@ export function Footer() {
           © {site.year} {site.fullName}
         </span>
         <span>{site.tagline}</span>
+        <span>
+          Site by{" "}
+          <a
+            href="https://sotodev.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer__credit"
+          >
+            sotodev.com
+          </a>
+        </span>
       </div>
     </footer>
   );
