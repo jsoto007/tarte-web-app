@@ -157,7 +157,7 @@ export function Footer() {
         </span>
         <span>{site.tagline}</span>
         <span>
-          Site by{" "}
+          Powered by Soto Dev — visit us at{" "}
           <a
             href="https://sotodev.com/"
             target="_blank"
