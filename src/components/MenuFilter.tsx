@@ -1,24 +1,47 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { galleryCategories } from "@/data/gallery";
 import { menu, menuGroups } from "@/data/menu";
 import { Button } from "./Button";
 
 export function MenuFilter() {
   const [cat, setCat] = useState<string>("All");
+  const topRef = useRef<HTMLDivElement>(null);
   const visibleSections =
     cat === "All" ? menu : menu.filter((s) => s.group === cat);
   const galleryCategorySet = new Set(galleryCategories);
 
+  // Filtering shortens the list below, so a deep scroll position can land the
+  // user past the new (shorter) content — looking like the click did nothing.
+  // `topRef` sits just above the sticky filter bar; it's a plain in-flow
+  // element (unlike the sticky bar itself, whose rendered position is already
+  // clamped to its stuck offset, which makes scrollIntoView on it a no-op).
+  // `scrollMarginTop` reserves room for the sticky nav above it. It's set
+  // comfortably below the filter bar's own sticky `top` (81px) so the browser
+  // scrolls past the point where the bar actually engages — landing just
+  // short of that leaves the bar in its natural (unstuck) position, exposing
+  // a sliver of the page above it instead of sitting flush under the nav.
+  function selectCategory(next: string) {
+    setCat(next);
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    topRef.current?.scrollIntoView({
+      behavior: reduceMotion ? "auto" : "smooth",
+      block: "start",
+    });
+  }
+
   return (
     <>
+      <div ref={topRef} style={{ scrollMarginTop: 60 }} />
       {/* Sticky category bar */}
       <div
         style={{
           position: "sticky",
-          top: 78,
+          top: 81,
           zIndex: 20,
           background: "rgba(247,241,232,0.9)",
           backdropFilter: "blur(12px)",
@@ -45,7 +68,7 @@ export function MenuFilter() {
               type="button"
               className="cat-pill"
               aria-pressed={cat === c}
-              onClick={() => setCat(c)}
+              onClick={() => selectCategory(c)}
             >
               {c}
             </button>
