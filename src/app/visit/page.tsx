@@ -2,12 +2,21 @@ import type { Metadata } from "next";
 import { MapPlaceholder } from "@/components/MapPlaceholder";
 import { PageHeader } from "@/components/PageHeader";
 import { ReservationForm } from "@/components/ReservationForm";
-import { hours, site } from "@/data/site";
+import { JsonLdScript } from "@/components/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
+import { directionsUrl, emailHref, hours, phoneHref, site } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Visit",
   description:
-    "Visit Tarte at 128 Maple Row, Old Town District — the corner with the green awning. See our hours, find & reach us, and request a table.",
+    "Visit Tarte at 2960 Middletown Rd, Bronx, NY 10461. See our hours, find & reach us, and request a table.",
+  alternates: { canonical: "/visit" },
+  openGraph: {
+    title: "Visit · Tarte",
+    description:
+      "Visit Tarte at 2960 Middletown Rd, Bronx, NY 10461. See our hours, find & reach us, and request a table.",
+    url: "/visit",
+  },
 };
 
 const cardStyle = {
@@ -26,10 +35,16 @@ const cardHeading = {
 export default function VisitPage() {
   return (
     <div className="animate-fade-up">
+      <JsonLdScript
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Visit", path: "/visit" },
+        ])}
+      />
       <PageHeader
         eyebrow="Come on in"
         title="Visit Tarte"
-        subtitle={`${site.contact.addressLine}, ${site.contact.district} — the corner with the green awning.`}
+        subtitle={`${site.contact.addressLine}, ${site.contact.district}.`}
       />
 
       <section
@@ -102,7 +117,7 @@ export default function VisitPage() {
                 <strong style={{ fontWeight: 600 }}>Phone</strong>
                 <br />
                 <a
-                  href={`tel:${site.contact.phone.replace(/[^\d+]/g, "")}`}
+                  href={phoneHref}
                   style={{ color: "inherit", textDecoration: "none" }}
                 >
                   {site.contact.phone}
@@ -119,7 +134,7 @@ export default function VisitPage() {
                 <strong style={{ fontWeight: 600 }}>Email</strong>
                 <br />
                 <a
-                  href={`mailto:${site.contact.email}`}
+                  href={emailHref}
                   style={{ color: "inherit", textDecoration: "none" }}
                 >
                   {site.contact.email}
@@ -135,7 +150,8 @@ export default function VisitPage() {
         {/* Map */}
         <MapPlaceholder
           variant="visit"
-          pinLabel="Tarte · Maple Row"
+          pinLabel="Tarte · Middletown Road"
+          href={directionsUrl}
           style={{
             maxWidth: 1100,
             margin: "28px auto 0",

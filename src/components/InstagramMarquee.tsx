@@ -2,6 +2,7 @@ import Image from "next/image";
 import { gallery } from "@/data/gallery";
 import { Button } from "./Button";
 import { Eyebrow } from "./Eyebrow";
+import { InstagramHandle } from "./InstagramIcon";
 
 function Tile({ label, img }: { label: string; img: string }) {
   return (
@@ -59,7 +60,9 @@ export function InstagramMarquee() {
       }}
     >
       <div style={{ textAlign: "center", marginBottom: 36, padding: "0 20px" }}>
-        <Eyebrow>@tartecoffee</Eyebrow>
+        <Eyebrow>
+          <InstagramHandle handle="@tartecoffee" />
+        </Eyebrow>
         <h2
           style={{
             fontFamily: "var(--font-display)",

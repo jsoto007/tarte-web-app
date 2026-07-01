@@ -4,7 +4,7 @@ test.describe("navigation", () => {
   test("moves between pages and reflects the active route", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
-      "Crafted Coffee",
+      "Homemade Bread",
     );
 
     const navLinks = page.locator(".nav__links");
@@ -66,6 +66,38 @@ test.describe("menu filter", () => {
   });
 });
 
+test.describe("menu gallery links", () => {
+  test("opens the matching gallery category from a menu section", async ({ page }) => {
+    await page.goto("/menu");
+    const section = page
+      .getByRole("heading", { level: 2, name: "Specialty Cakes" })
+      .locator("..");
+
+    await section.getByRole("link", { name: "View in Gallery" }).click();
+    await expect(page).toHaveURL("/gallery?category=Specialty%20Cakes");
+    await expect(
+      page.getByRole("button", { name: "Specialty Cakes", exact: true }),
+    ).toHaveAttribute("aria-pressed", "true");
+    await expect(page.locator(".gallery-tile")).toHaveCount(2);
+  });
+});
+
+test.describe("directions links", () => {
+  test("home directions button and map open Google Maps directions", async ({ page }) => {
+    await page.goto("/");
+    const expected =
+      "https://www.google.com/maps/dir/?api=1&destination=2960%20Middletown%20Rd%2C%20Bronx%2C%20NY%2010461";
+
+    await expect(page.getByRole("link", { name: "Get Directions" })).toHaveAttribute(
+      "href",
+      expected,
+    );
+    await expect(
+      page.getByRole("link", { name: /Open directions to Tarte in Google Maps/ }),
+    ).toHaveAttribute("href", expected);
+  });
+});
+
 test.describe("gallery lightbox", () => {
   test("opens, navigates with the keyboard, and closes", async ({ page }) => {
     await page.goto("/gallery");
@@ -104,23 +136,6 @@ test.describe("reservation form", () => {
     await form.getByRole("button", { name: "Request Reservation" }).click();
 
     await expect(page.getByText("Request received")).toBeVisible();
-  });
-});
-
-test.describe("newsletter form", () => {
-  test("rejects an invalid email then accepts a valid one", async ({ page }) => {
-    await page.route("**/__forms.html", (route) =>
-      route.fulfill({ status: 200, body: "OK" }),
-    );
-    await page.goto("/");
-    const form = page.locator('form[name="newsletter"]');
-
-    await form.getByRole("button", { name: "Join" }).click();
-    await expect(form.getByRole("alert")).toContainText("valid email");
-
-    await form.getByLabel("Email address").fill("fan@example.com");
-    await form.getByRole("button", { name: "Join" }).click();
-    await expect(page.getByText(/on the list/)).toBeVisible();
   });
 });
 

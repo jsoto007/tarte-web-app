@@ -3,7 +3,16 @@ import { Button } from "@/components/Button";
 import { Eyebrow } from "@/components/Eyebrow";
 import { InstagramMarquee } from "@/components/InstagramMarquee";
 import { MapPlaceholder } from "@/components/MapPlaceholder";
-import { features, hours, site, specialties, storyTeaser } from "@/data/site";
+import {
+  directionsUrl,
+  emailHref,
+  features,
+  hours,
+  phoneHref,
+  site,
+  specialties,
+  storyTeaser,
+} from "@/data/site";
 
 export default function Home() {
   return (
@@ -78,7 +87,7 @@ export default function Home() {
               backdropFilter: "blur(4px)",
             }}
           >
-            Coffee Shop · Bakes · Est. 2014
+            Pastries · Breakfast · Sandwiches · Coffee
           </div>
           <h1
             style={{
@@ -92,10 +101,10 @@ export default function Home() {
               textShadow: "0 4px 30px rgba(0,0,0,0.4)",
             }}
           >
-            Crafted Coffee &amp;
+            Homemade Bread,
             <br />
             <span style={{ fontStyle: "italic", color: "var(--color-accent-light)" }}>
-              Cozy Moments
+              Baked Fresh Daily
             </span>
           </h1>
           <p
@@ -108,8 +117,9 @@ export default function Home() {
               textShadow: "0 2px 14px rgba(0,0,0,0.4)",
             }}
           >
-            Artisan espresso, handcrafted drinks, and fresh-baked pastries
-            served slow. A warm corner of the city made for coffee lovers.
+            Pastries we&apos;re known for, breakfast served hot every morning,
+            sandwiches on bread we bake daily, and coffee in every style — all
+            made with real ingredients and years of recipes development.
           </p>
           <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
             <Button
@@ -120,7 +130,7 @@ export default function Home() {
                 boxShadow: "0 14px 30px rgba(0,0,0,0.3)",
               }}
             >
-              Explore Menu
+              See the Menu
             </Button>
             <Button
               href="/visit"
@@ -206,6 +216,235 @@ export default function Home() {
         </div>
       </section>
 
+      {/* PASTRY SIGNATURE */}
+      <section
+        style={{
+          padding:
+            "clamp(42px, 6vw, 84px) clamp(20px, 5vw, 64px) clamp(56px, 7vw, 96px)",
+          background:
+            "linear-gradient(180deg, var(--color-cream) 0%, #fffaf1 52%, var(--color-cream) 100%)",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: 1180,
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 360px), 1fr))",
+            gap: "clamp(30px, 5vw, 64px)",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))",
+              gap: 16,
+              alignItems: "stretch",
+            }}
+          >
+            <div
+              style={{
+                position: "relative",
+                minHeight: 430,
+                borderRadius: 18,
+                overflow: "hidden",
+                boxShadow: "0 26px 60px rgba(58,36,24,0.16)",
+              }}
+            >
+              <Image
+                src="/assets/menu/croissantstable.jpg"
+                alt="Fresh pastries arranged on the Tarte pastry table"
+                fill
+                sizes="(max-width: 900px) 100vw, 560px"
+                style={{ objectFit: "cover" }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  inset: "auto 18px 18px",
+                  background: "rgba(33,22,16,0.82)",
+                  color: "var(--color-cream-text)",
+                  border: "1px solid rgba(243,233,218,0.22)",
+                  borderRadius: 12,
+                  padding: "14px 16px",
+                  backdropFilter: "blur(6px)",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 11,
+                    letterSpacing: "1.7px",
+                    textTransform: "uppercase",
+                    color: "var(--color-accent-light)",
+                    marginBottom: 4,
+                  }}
+                >
+                  Pastry case first
+                </div>
+                <strong
+                  style={{
+                    display: "block",
+                    fontFamily: "var(--font-display)",
+                    fontSize: 24,
+                    lineHeight: 1.05,
+                  }}
+                >
+                  Made to be the reason you visit.
+                </strong>
+              </div>
+            </div>
+            <div style={{ display: "grid", gap: 16 }}>
+              {[
+                {
+                  src: "/assets/menu/croissant2.jpg",
+                  alt: "Golden croissant from Tarte",
+                  label: "Laminated",
+                },
+                {
+                  src: "/assets/menu/breadplate.jpg",
+                  alt: "Tarte dessert plate",
+                  label: "Filled",
+                },
+                {
+                  src: "/assets/menu/croissanttray.jpg",
+                  alt: "Tray of fresh pastries",
+                  label: "Boxed",
+                },
+              ].map((item) => (
+                <div
+                  key={item.label}
+                  style={{
+                    position: "relative",
+                    minHeight: 132,
+                    borderRadius: 16,
+                    overflow: "hidden",
+                    boxShadow: "0 18px 38px rgba(58,36,24,0.12)",
+                  }}
+                >
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    fill
+                    sizes="(max-width: 900px) 42vw, 260px"
+                    style={{ objectFit: "cover" }}
+                  />
+                  <span
+                    style={{
+                      position: "absolute",
+                      left: 12,
+                      bottom: 12,
+                      padding: "6px 10px",
+                      borderRadius: 999,
+                      background: "rgba(255,253,249,0.9)",
+                      color: "var(--color-brown)",
+                      fontSize: 11,
+                      fontWeight: 700,
+                      letterSpacing: "1.3px",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {item.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <Eyebrow>Why the line starts here</Eyebrow>
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(36px, 4.8vw, 60px)",
+                fontWeight: 600,
+                lineHeight: 1,
+                margin: "14px 0 20px",
+                letterSpacing: "-0.5px",
+              }}
+            >
+              Pastries are our signature.
+            </h2>
+            <p
+              style={{
+                fontSize: "clamp(16px, 1.45vw, 18px)",
+                lineHeight: 1.7,
+                color: "rgba(36,24,19,0.72)",
+                margin: "0 0 28px",
+                maxWidth: 520,
+              }}
+            >
+              Pastries are what we&apos;re known for. We bake our own bread
+              fresh every morning, from recipes developed over years — folded
+              dough, fruit tarts, and warm trays, all made with care.
+            </p>
+            <div style={{ display: "grid", gap: 14, marginBottom: 30 }}>
+              {[
+                ["01", "Bread baked fresh at dawn", "We bake our own bread every morning, so croissants, loaves, and sandwiches all start fresh."],
+                ["02", "Recipes years in the making", "Our pastries come from recipes we've developed and refined over years."],
+                ["03", "Made with care", "Small batches, handled gently, and finished to be the thing people remember."],
+              ].map(([step, title, desc]) => (
+                <div
+                  key={step}
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "54px 1fr",
+                    gap: 16,
+                    alignItems: "start",
+                    paddingBottom: 14,
+                    borderBottom: "1px solid rgba(58,36,24,0.12)",
+                  }}
+                >
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      width: 44,
+                      height: 44,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: "50%",
+                      background: "var(--color-brown)",
+                      color: "var(--color-cream-text)",
+                      fontSize: 12,
+                      fontWeight: 700,
+                      letterSpacing: "1px",
+                    }}
+                  >
+                    {step}
+                  </span>
+                  <span>
+                    <strong
+                      style={{
+                        display: "block",
+                        fontFamily: "var(--font-display)",
+                        fontSize: 24,
+                        lineHeight: 1.1,
+                        marginBottom: 4,
+                      }}
+                    >
+                      {title}
+                    </strong>
+                    <span
+                      style={{
+                        display: "block",
+                        color: "rgba(36,24,19,0.66)",
+                        fontSize: 14.5,
+                        lineHeight: 1.55,
+                      }}
+                    >
+                      {desc}
+                    </span>
+                  </span>
+                </div>
+              ))}
+            </div>
+            <Button href="/menu" variant="dark">
+              Order From the Case
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* CAFÉ SPECIALTIES */}
       <section
         style={{
@@ -215,7 +454,7 @@ export default function Home() {
       >
         <div style={{ maxWidth: 1180, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <Eyebrow>What we make</Eyebrow>
+            <Eyebrow>What we are known for</Eyebrow>
             <h2
               style={{
                 fontFamily: "var(--font-display)",
@@ -225,7 +464,7 @@ export default function Home() {
                 letterSpacing: "-0.5px",
               }}
             >
-              Our Café Specialties
+              Baked Fresh, Served All Day
             </h2>
           </div>
           <div
@@ -307,25 +546,16 @@ export default function Home() {
               aspectRatio: "4 / 5",
               borderRadius: 20,
               overflow: "hidden",
-              background:
-                "radial-gradient(circle at 40% 35%, #e9d3ac, #b08a5d 45%, #5d3a1d 85%)",
               boxShadow: "0 30px 70px rgba(0,0,0,0.4)",
             }}
           >
-            <span
-              style={{
-                position: "absolute",
-                bottom: 14,
-                left: 16,
-                fontFamily: "var(--font-mono)",
-                fontSize: 11,
-                letterSpacing: "1.5px",
-                color: "rgba(243,233,218,0.7)",
-                textTransform: "uppercase",
-              }}
-            >
-              The Roastery
-            </span>
+            <Image
+              src="/assets/story-tart.png"
+              alt="Apple tart baked fresh at Tarte Coffee Shop & Bakes"
+              fill
+              sizes="(max-width: 760px) 100vw, 520px"
+              style={{ objectFit: "cover" }}
+            />
           </div>
           <div>
             <Eyebrow color="var(--color-accent-muted)">Our Story</Eyebrow>
@@ -339,7 +569,7 @@ export default function Home() {
                 letterSpacing: "-0.5px",
               }}
             >
-              A neighborhood table, ten years in the making.
+              A homemade neighborhood table, made fresh every day.
             </h2>
             {storyTeaser.map((para, i) => (
               <p
@@ -400,7 +630,7 @@ export default function Home() {
                 letterSpacing: "-0.5px",
               }}
             >
-              Open daily on Maple Row
+              Open daily on Middletown Road
             </h2>
             <div
               style={{
@@ -449,9 +679,26 @@ export default function Home() {
                 margin: "0 0 24px",
               }}
             >
-              {site.contact.email} · {site.contact.phone}
+              <a
+                href={emailHref}
+                style={{ color: "inherit", textDecorationColor: "var(--accent)" }}
+              >
+                {site.contact.email}
+              </a>{" "}
+              ·{" "}
+              <a
+                href={phoneHref}
+                style={{ color: "inherit", textDecorationColor: "var(--accent)" }}
+              >
+                {site.contact.phone}
+              </a>
             </p>
-            <Button href="/visit" variant="dark">
+            <Button
+              href={directionsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="dark"
+            >
               Get Directions
             </Button>
           </div>
@@ -459,7 +706,8 @@ export default function Home() {
           <MapPlaceholder
             variant="home"
             pinLabel="Tarte"
-            caption="Map — Maple Row"
+            href={directionsUrl}
+            caption="Map — Middletown Road"
             style={{ minHeight: 320 }}
           />
         </div>

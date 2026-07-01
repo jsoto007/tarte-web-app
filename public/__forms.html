@@ -6,17 +6,11 @@
   </head>
   <body>
     <!--
-      Static form definitions so Netlify Forms detects them at build time.
-      The React components (NewsletterForm, ReservationForm) POST here with a
-      matching `form-name`. No backend required — submissions appear in the
-      Netlify dashboard under Forms. Safe to leave; this page is not linked.
+      Static form definition so Netlify Forms detects it at build time.
+      The React reservation form POSTs here with a matching `form-name`.
+      No backend required — submissions appear in the Netlify dashboard under
+      Forms. Safe to leave; this page is not linked.
     -->
-    <form name="newsletter" data-netlify="true" netlify-honeypot="bot-field" hidden>
-      <input type="hidden" name="form-name" value="newsletter" />
-      <input name="bot-field" />
-      <input type="email" name="email" />
-    </form>
-
     <form name="reservation" data-netlify="true" netlify-honeypot="bot-field" hidden>
       <input type="hidden" name="form-name" value="reservation" />
       <input name="bot-field" />

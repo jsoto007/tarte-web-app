@@ -1,16 +1,27 @@
 {
   "name": "Tarte",
-  "fullName": "Tarte Coffee Shop & Bakes",
-  "established": 2014,
+  "fullName": "Tarte Bakes & Coffee Shop",
+  "established": 2025,
   "year": 2026,
-  "tagline": "Made slow, the way mornings should be.",
-  "footerBlurb": "Crafted coffee & cozy moments on the corner of Maple Row. Roasted, pulled, and baked in-house since 2014.",
-  "newsletterBlurb": "Seasonal drinks & events, once a month.",
+  "tagline": "Bread baked fresh every morning — pastries, breakfast, sandwiches & coffee.",
+  "footerBlurb": "Homemade pastries, hot breakfast, sandwiches on bread we bake daily, and coffee in every style — on Middletown Road since 2025.",
   "contact": {
-    "addressLine": "128 Maple Row",
-    "district": "Old Town District",
+    "addressLine": "2960 Middletown Rd",
+    "district": "Bronx, NY 10461",
+    "locality": "Bronx",
+    "region": "NY",
+    "postalCode": "10461",
+    "country": "US",
     "phone": "929-777-9536",
-    "email": "hello@tartecoffee.co"
+    "email": "tarte@tartebakes.com"
+  },
+  "social": {
+    "instagram": "https://www.instagram.com/tartecoffee",
+    "instagramHandle": "@tartecoffee"
+  },
+  "geo": {
+    "latitude": 40.83713,
+    "longitude": -73.82902
   },
   "nav": [
     { "label": "Home", "href": "/" },
@@ -21,42 +32,49 @@
   ],
   "hours": [
     { "dayShort": "Mon – Fri", "dayLong": "Monday – Friday", "time": "7:00 AM – 7:00 PM" },
-    { "dayShort": "Saturday", "dayLong": "Saturday", "time": "8:00 AM – 8:00 PM" },
-    { "dayShort": "Sunday", "dayLong": "Sunday", "time": "8:00 AM – 5:00 PM" }
+    { "dayShort": "Saturday", "dayLong": "Saturday", "time": "8:00 AM – 6:00 PM" },
+    { "dayShort": "Sunday", "dayLong": "Sunday", "time": "8:00 AM – 6:00 PM" }
   ],
   "features": [
     {
-      "icon": "☕",
-      "title": "Signature Coffee",
-      "desc": "Single-origin beans, roasted in small batches and pulled by hand for a cleaner, sweeter cup.",
-      "linkLabel": "Explore Coffee",
-      "href": "/menu"
-    },
-    {
       "icon": "🥐",
-      "title": "Fresh Bakery",
-      "desc": "Croissants laminated overnight and pastries baked before sunrise — flour, butter, patience.",
-      "linkLabel": "See the Bakes",
+      "title": "Pastries",
+      "desc": "What we're known for. We bake our own bread fresh every morning, from recipes developed over years and made with care.",
+      "linkLabel": "See the Pastry Case",
       "href": "/menu"
     },
     {
-      "icon": "🥤",
-      "title": "Specialty Drinks",
-      "desc": "Seasonal cold brews, espresso tonics, and house syrups made fresh — coffee, reimagined.",
-      "linkLabel": "View Drinks",
+      "icon": "🍳",
+      "title": "Breakfast",
+      "desc": "Served hot and fresh every morning, made with real ingredients — the way a morning should start.",
+      "linkLabel": "See Breakfast",
+      "href": "/menu"
+    },
+    {
+      "icon": "🥪",
+      "title": "Sandwiches",
+      "desc": "Built on our homemade bread, freshly baked daily, and stacked to order.",
+      "linkLabel": "See Sandwiches",
+      "href": "/menu"
+    },
+    {
+      "icon": "☕",
+      "title": "Coffee",
+      "desc": "All types — espresso, lattes, cold brew, and seasonal specialties, brewed all day.",
+      "linkLabel": "See the Coffee",
       "href": "/menu"
     }
   ],
   "specialties": [
-    { "title": "Espresso Bar", "caption": "Watch each shot pulled to order at the marble bar.", "img": "/assets/menu/cappuccino.jpg" },
-    { "title": "Fresh Pastries", "caption": "Hand-laminated croissants and tarts, baked at dawn.", "img": "/assets/menu/croissantstable.jpg" },
-    { "title": "Breakfast Plates", "caption": "Slow mornings deserve something warm and unhurried.", "img": "/assets/menu/croissantcoaster.jpg" },
-    { "title": "Cold Brew Bar", "caption": "Steeped 18 hours for a smooth, low-acid pour.", "img": "/assets/menu/coldbrew.jpg" },
-    { "title": "Dessert of the Day", "caption": "A rotating cake or tart from the pastry case.", "img": "/assets/menu/breadplate.jpg" },
-    { "title": "Beans to Take Home", "caption": "Retail bags of our current single-origin roast.", "img": "/assets/menu/beans.jpg" }
+    { "title": "Signature Pastries", "caption": "Croissants, tarts, and morning bakes — the thing we're known for, made with care.", "img": "/assets/menu/croissant2.jpg" },
+    { "title": "Fresh-Baked Bread", "caption": "We bake our own bread fresh every morning, from recipes years in the making.", "img": "/assets/menu/croissanttray.jpg" },
+    { "title": "Hot Breakfast", "caption": "Eggs, omelets, and pancakes served hot and fresh with real ingredients.", "img": "/assets/menu/croissantcoaster.jpg" },
+    { "title": "Homemade Sandwiches", "caption": "Burgers, Philly steaks, and wraps built on bread we bake daily.", "img": "/assets/menu/breadplate.jpg" },
+    { "title": "Coffee, Every Way", "caption": "Espresso, lattes, cortados, and seasonal specialties brewed all day.", "img": "/assets/menu/cappuccino.jpg" },
+    { "title": "Cold & Iced", "caption": "Freddo, cold brew, and iced lattes for the warmer afternoons.", "img": "/assets/menu/coldbrew.jpg" }
   ],
   "stats": [
-    { "value": "2014", "label": "Founded" },
+    { "value": "2025", "label": "Founded" },
     { "value": "3", "label": "Roasts in rotation" },
     { "value": "5AM", "label": "Bakes begin" },
     { "value": "∞", "label": "Refills on the house" }
@@ -67,11 +85,13 @@
     { "name": "Priya Nair", "role": "Lead Barista", "gradient": "linear-gradient(140deg, #e7d0a8, #a07a52)" }
   ],
   "storyTeaser": [
-    "Tarte began in 2014 as a single cart and a stubborn belief that a good cup is worth slowing down for. Today we roast our own beans, laminate our own dough, and still greet most regulars by name.",
-    "Everything is made in small batches, the unhurried way — because the best mornings can’t be rushed."
+    "I’ve always dreamed of building something of my own, a place that reflects who we are and the experiences we want to share. Opening this coffee shop is more than starting a business. It’s about creating a welcoming space where people can slow down, connect, and enjoy great coffee and fresh pastries.",
+    "The name Tarte has a special meaning to us. It’s my wife’s favorite dessert, and from the moment she told me, I knew it would one day become the name of our shop. It represents warmth, comfort, and the little moments that bring people together.",
+    "Every cup we serve and every pastry we bake is our way of saying thank you to the community that supports us. We hope Tarte becomes a place where familiar faces feel at home, new friendships begin, and every visit leaves you looking forward to the next."
   ],
   "aboutProse": [
-    "Tarte started as a single cart on the corner of Maple Row, run by two friends who couldn’t find a cup they loved. Ten years on, we roast our own beans, laminate our own dough, and still pull every shot by hand.",
-    "We believe the best mornings are unhurried — so we make everything in small batches, the slow way, and we save a seat for whoever needs one."
+    "I’ve always dreamed of building something of my own, a place that reflects who we are and the experiences we want to share. Opening this coffee shop is more than starting a business. It’s about creating a welcoming space where people can slow down, connect, and enjoy great coffee and fresh pastries.",
+    "The name Tarte has a special meaning to us. It’s my wife’s favorite dessert, and from the moment she told me, I knew it would one day become the name of our shop. It represents warmth, comfort, and the little moments that bring people together.",
+    "Every cup we serve and every pastry we bake is our way of saying thank you to the community that supports us. We hope Tarte becomes a place where familiar faces feel at home, new friendships begin, and every visit leaves you looking forward to the next."
   ]
 }

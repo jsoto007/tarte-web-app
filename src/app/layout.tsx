@@ -3,7 +3,8 @@ import { Cormorant_Garamond, Outfit } from "next/font/google";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
-import { siteUrl } from "@/lib/seo";
+import { siteUrl, siteDescription } from "@/lib/seo";
+import { site } from "@/data/site";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -21,46 +22,72 @@ const outfit = Outfit({
   display: "swap",
 });
 
-const description =
-  "Crafted coffee & cozy moments on the corner of Maple Row. Artisan espresso, handcrafted drinks, and fresh-baked pastries served slow — roasted, pulled, and baked in-house since 2014.";
+const description = siteDescription;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Tarte — Coffee Shop & Bakes",
+    default: "Tarte — Coffee Shop & Bakes in the Bronx",
     template: "%s · Tarte",
   },
   description,
   applicationName: "Tarte",
+  authors: [{ name: site.fullName, url: siteUrl }],
+  creator: site.fullName,
+  publisher: site.fullName,
+  category: "food",
+  manifest: "/manifest.webmanifest",
   keywords: [
     "coffee shop",
+    "coffee shop Bronx",
     "bakery",
+    "bakery Bronx",
+    "pastry shop",
     "espresso",
     "pastries",
+    "homemade pastries",
+    "fresh bread",
     "croissant",
     "cold brew",
-    "Maple Row",
+    "breakfast",
+    "sandwiches",
+    "Middletown Road",
+    "Bronx",
+    "New York",
     "Tarte",
   ],
   alternates: { canonical: "/" },
+  formatDetection: { telephone: true, address: true, email: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
     type: "website",
     siteName: "Tarte Coffee Shop & Bakes",
-    title: "Tarte — Coffee Shop & Bakes",
+    title: "Tarte — Coffee Shop & Bakes in the Bronx",
     description,
     url: siteUrl,
+    locale: "en_US",
     images: [
       {
         url: "/assets/hero-storefront.png",
         width: 1733,
         height: 907,
-        alt: "The Tarte coffee shop storefront on Maple Row",
+        alt: "The Tarte coffee shop storefront on Middletown Road",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tarte — Coffee Shop & Bakes",
+    title: "Tarte — Coffee Shop & Bakes in the Bronx",
     description,
     images: ["/assets/hero-storefront.png"],
   },

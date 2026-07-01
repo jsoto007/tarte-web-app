@@ -1,14 +1,14 @@
 [
-  { "label": "Morning Pour", "img": "/assets/menu/latte.jpg", "featured": true },
-  { "label": "Fresh Croissants", "img": "/assets/menu/croissant2.jpg", "featured": false },
-  { "label": "Latte Art", "img": "/assets/menu/cappuccino.jpg", "featured": false },
-  { "label": "The Roastery", "img": "/assets/hero-cafe.jpg", "featured": false },
-  { "label": "Corner Table", "img": "/assets/menu/croissantcoaster.jpg", "featured": false },
-  { "label": "Almond Tart", "img": "/assets/menu/breadplate.jpg", "featured": true },
-  { "label": "Cold Brew Bar", "img": "/assets/menu/coldbrew.jpg", "featured": false },
-  { "label": "Pastry Case", "img": "/assets/menu/croissantstable.jpg", "featured": false },
-  { "label": "Sunlit Window", "img": "/assets/menu/filter.jpg", "featured": false },
-  { "label": "Bean Selection", "img": "/assets/menu/beans.jpg", "featured": false },
-  { "label": "Hand Pour", "img": "/assets/menu/cortado.jpg", "featured": true },
-  { "label": "Afternoon Slice", "img": "/assets/menu/croissanttray.jpg", "featured": false }
+  { "label": "Morning Pour", "img": "/assets/menu/latte.jpg", "category": "Coffee", "featured": true },
+  { "label": "Fresh Croissants", "img": "/assets/menu/croissant2.jpg", "category": "Pastries", "featured": false },
+  { "label": "Latte Art", "img": "/assets/menu/cappuccino.jpg", "category": "Coffee", "featured": false },
+  { "label": "The Roastery", "img": "/assets/hero-cafe.jpg", "category": "Coffee", "featured": false },
+  { "label": "Hot Breakfast", "img": "/assets/menu/croissantcoaster.jpg", "category": "Breakfast", "featured": false },
+  { "label": "Specialty Cake", "img": "/assets/menu/breadplate.jpg", "category": "Specialty Cakes", "featured": true },
+  { "label": "Cold Brew Bar", "img": "/assets/menu/coldbrew.jpg", "category": "Coffee", "featured": false },
+  { "label": "Pastry Case", "img": "/assets/menu/croissantstable.jpg", "category": "Pastries", "featured": false },
+  { "label": "Fresh-Baked Bread", "img": "/assets/menu/filter.jpg", "category": "Sandwiches", "featured": false },
+  { "label": "Bean Selection", "img": "/assets/menu/beans.jpg", "category": "Coffee", "featured": false },
+  { "label": "Hand Pour", "img": "/assets/menu/cortado.jpg", "category": "Coffee", "featured": true },
+  { "label": "Take-Home Bakes", "img": "/assets/menu/croissanttray.jpg", "category": "Specialty Cakes", "featured": false }
 ]

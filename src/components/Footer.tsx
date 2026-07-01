@@ -1,8 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { navItems, site } from "@/data/site";
+import {
+  directionsUrl,
+  emailHref,
+  hours,
+  navItems,
+  phoneHref,
+  site,
+} from "@/data/site";
 import { Eyebrow } from "./Eyebrow";
-import { NewsletterForm } from "./NewsletterForm";
 
 const exploreLinks = navItems.filter((n) => n.href !== "/");
 
@@ -15,17 +21,9 @@ export function Footer() {
         padding: "clamp(50px, 6vw, 80px) clamp(20px, 5vw, 64px) 36px",
       }}
     >
-      <div
-        style={{
-          maxWidth: 1180,
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-          gap: 40,
-        }}
-      >
+      <div className="footer__grid">
         {/* Brand */}
-        <div>
+        <div className="footer__brand">
           <div
             style={{
               display: "flex",
@@ -56,12 +54,20 @@ export function Footer() {
             style={{
               fontSize: 14,
               lineHeight: 1.65,
-              maxWidth: 260,
+              maxWidth: 320,
               margin: 0,
             }}
           >
             {site.footerBlurb}
           </p>
+          <div className="footer__actions" aria-label="Footer actions">
+            <a href={directionsUrl} className="footer-link">
+              Get Directions
+            </a>
+            <a href={phoneHref} className="footer-link">
+              Call Us
+            </a>
+          </div>
         </div>
 
         {/* Explore */}
@@ -94,15 +100,23 @@ export function Footer() {
             Visit
           </Eyebrow>
           <p style={{ fontSize: 14, lineHeight: 1.7, margin: 0 }}>
-            {site.contact.addressLine}
+            <a href={directionsUrl} className="footer-link">
+              {site.contact.addressLine}
+            </a>
             <br />
             {site.contact.district}
             <br />
-            {site.contact.phone}
+            <a href={phoneHref} className="footer-link">
+              {site.contact.phone}
+            </a>
+            <br />
+            <a href={emailHref} className="footer-link">
+              {site.contact.email}
+            </a>
           </p>
         </div>
 
-        {/* Newsletter */}
+        {/* Hours */}
         <div>
           <Eyebrow
             as="h4"
@@ -110,12 +124,16 @@ export function Footer() {
             tracking={2}
             style={{ margin: "0 0 16px", display: "block" }}
           >
-            Stay in the loop
+            Hours
           </Eyebrow>
-          <p style={{ fontSize: 14, lineHeight: 1.6, margin: "0 0 14px" }}>
-            {site.newsletterBlurb}
-          </p>
-          <NewsletterForm />
+          <div className="footer__hours">
+            {hours.map((row) => (
+              <p key={row.dayShort} className="footer__hours-row">
+                <span>{row.dayShort}</span>
+                <span>{row.time}</span>
+              </p>
+            ))}
+          </div>
         </div>
       </div>
 

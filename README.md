@@ -62,11 +62,11 @@ links). The design handoff suggests these alternates: `#b5824e`, `#a9805c`,
 
 ## Forms
 
-The **reservation** and **newsletter** forms use **Netlify Forms** — no backend
-required. Submissions appear in your Netlify dashboard under **Forms**.
+The **reservation** form uses **Netlify Forms** — no backend required.
+Submissions appear in your Netlify dashboard under **Forms**.
 
-- The forms are registered for detection via `public/__forms.html`.
-- Client components post to `/__forms.html` with the matching `form-name`.
+- The form is registered for detection via `public/__forms.html`.
+- The client component posts to `/__forms.html` with the matching `form-name`.
 - Locally (no Netlify backend) submissions resolve optimistically so you can see
   the success states; in production a real failure is surfaced to the user.
 
