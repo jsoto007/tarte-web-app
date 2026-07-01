@@ -77,7 +77,7 @@
     { "value": "2025", "label": "Founded" },
     { "value": "3", "label": "Roasts in rotation" },
     { "value": "5AM", "label": "Bakes begin" },
-    { "value": "∞", "label": "Refills on the house" }
+    { "value": "7", "label": "Days a week" }
   ],
   "team": [
     { "name": "Mara Voss", "role": "Co-founder · Head Roaster", "gradient": "linear-gradient(140deg, #d2a468, #7c5230)" },
