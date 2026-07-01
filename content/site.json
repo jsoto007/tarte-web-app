@@ -20,8 +20,8 @@
     "instagramHandle": "@tartecoffee"
   },
   "geo": {
-    "latitude": 40.83713,
-    "longitude": -73.82902
+    "latitude": 40.8436477,
+    "longitude": -73.8309319
   },
   "nav": [
     { "label": "Home", "href": "/" },

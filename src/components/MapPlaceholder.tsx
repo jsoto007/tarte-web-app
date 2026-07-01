@@ -1,41 +1,39 @@
 import type { CSSProperties } from "react";
+import { mapEmbedUrl } from "@/data/site";
 
 type MapVariant = "home" | "visit";
 
 type MapPlaceholderProps = {
   variant: MapVariant;
   pinLabel: string;
-  /** Optional external maps URL. When provided, the whole map opens directions. */
+  /** Optional external maps URL. When provided, shows a "Get Directions" chip. */
   href?: string;
-  /** Optional mono caption, bottom-right (Home only in the design). */
+  /** Optional mono caption, bottom-left. */
   caption?: string;
   /** Outer sizing overrides (the parent controls layout). */
   style?: CSSProperties;
 };
 
 const config = {
-  home: {
-    radius: 22,
-    grid: "44px 44px",
-    road1: { left: "18%", top: "30%", width: "46%", height: 8, rotate: -18 },
-    road2: { left: "8%", top: "62%", width: "70%", height: 10, rotate: 6 },
-    pin: { size: 30, top: "48%" },
-    labelFont: 12,
-  },
-  visit: {
-    radius: 20,
-    grid: "48px 48px",
-    road1: { left: "14%", top: "34%", width: "50%", height: 10, rotate: -14 },
-    road2: { left: "6%", top: "64%", width: "74%", height: 12, rotate: 5 },
-    pin: { size: 34, top: "50%" },
-    labelFont: 13,
-  },
+  home: { radius: 22, chipFont: 12 },
+  visit: { radius: 20, chipFont: 13 },
 } as const;
 
+const chipStyle = {
+  fontFamily: "var(--font-sans)",
+  fontWeight: 600,
+  background: "var(--color-card)",
+  padding: "6px 12px",
+  borderRadius: 100,
+  boxShadow: "0 4px 10px rgba(0,0,0,0.18)",
+  whiteSpace: "nowrap",
+} satisfies CSSProperties;
+
 /**
- * Stylized map placeholder (tan gradient + grid lines + abstract roads +
- * teardrop pin). Intentional placeholder per the handoff — swap for an
- * embedded Google/Mapbox map in production.
+ * Live, embedded Google Map centered on the shop's exact coordinates (no API
+ * key required). Overlays a brand pill (top-left) and, when `href` is given,
+ * a "Get Directions" pill (bottom-right) — the map itself stays interactive
+ * (pan/zoom), so it can't be wrapped in a whole-container link.
  */
 export function MapPlaceholder({
   variant,
@@ -52,134 +50,81 @@ export function MapPlaceholder({
     overflow: "hidden",
     background: "linear-gradient(160deg, #d9c6a6, #b89c74)",
     boxShadow: "0 20px 50px rgba(58,36,24,0.12)",
-    cursor: href ? "pointer" : undefined,
-    textDecoration: "none",
-    color: "inherit",
     ...style,
   } satisfies CSSProperties;
-  const content = (
-    <>
-      {/* grid lines */}
-      <div
-        aria-hidden
+
+  return (
+    <div style={containerStyle}>
+      <iframe
+        title={`Map showing ${pinLabel}`}
+        src={mapEmbedUrl}
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
         style={{
           position: "absolute",
           inset: 0,
-          backgroundImage:
-            "linear-gradient(rgba(36,24,19,0.10) 1px, transparent 1px), linear-gradient(90deg, rgba(36,24,19,0.10) 1px, transparent 1px)",
-          backgroundSize: c.grid,
+          width: "100%",
+          height: "100%",
+          border: 0,
         }}
       />
-      {/* roads */}
-      <div
+
+      <span
         aria-hidden
         style={{
+          ...chipStyle,
           position: "absolute",
-          left: c.road1.left,
-          top: c.road1.top,
-          width: c.road1.width,
-          height: c.road1.height,
-          background: "rgba(36,24,19,0.22)",
-          borderRadius: 6,
-          transform: `rotate(${c.road1.rotate}deg)`,
-        }}
-      />
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          left: c.road2.left,
-          top: c.road2.top,
-          width: c.road2.width,
-          height: c.road2.height,
-          background: "rgba(243,233,218,0.5)",
-          borderRadius: 6,
-          transform: `rotate(${c.road2.rotate}deg)`,
-        }}
-      />
-      {/* pin */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          left: "50%",
-          top: c.pin.top,
-          transform: "translate(-50%,-100%)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: variant === "home" ? 4 : 5,
+          right: 14,
+          top: 14,
+          fontSize: c.chipFont,
+          pointerEvents: "none",
         }}
       >
-        <div
-          style={{
-            width: c.pin.size,
-            height: c.pin.size,
-            borderRadius: "50% 50% 50% 0",
-            background: "var(--color-ink)",
-            transform: "rotate(-45deg)",
-            boxShadow:
-              variant === "home"
-                ? "0 8px 18px rgba(0,0,0,0.3)"
-                : "0 10px 22px rgba(0,0,0,0.3)",
-          }}
-        />
-        <span
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: c.labelFont,
-            fontWeight: 600,
-            background: "var(--color-card)",
-            padding: variant === "home" ? "4px 10px" : "5px 12px",
-            borderRadius: 100,
-            boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
-            whiteSpace: "nowrap",
-          }}
-        >
-          {pinLabel}
-        </span>
-      </div>
+        {pinLabel}
+      </span>
+
       {caption && (
         <span
           aria-hidden
           style={{
             position: "absolute",
             bottom: 14,
-            right: 16,
+            left: 16,
             fontFamily: "var(--font-mono)",
             fontSize: 10,
             letterSpacing: "1.5px",
-            color: "rgba(36,24,19,0.5)",
+            color: "rgba(36,24,19,0.6)",
             textTransform: "uppercase",
+            background: "rgba(255,253,249,0.85)",
+            padding: "4px 8px",
+            borderRadius: 6,
+            pointerEvents: "none",
           }}
         >
           {caption}
         </span>
       )}
-    </>
-  );
 
-  if (href) {
-    return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`Open directions to ${pinLabel} in Google Maps`}
-        style={containerStyle}
-      >
-        {content}
-      </a>
-    );
-  }
-
-  return (
-    <div
-      role="img"
-      aria-label={`Map showing ${pinLabel}`}
-      style={containerStyle}
-    >
-      {content}
+      {href && (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Open directions to ${pinLabel} in Google Maps`}
+          style={{
+            ...chipStyle,
+            position: "absolute",
+            right: 14,
+            bottom: 14,
+            fontSize: c.chipFont,
+            color: "var(--color-cream-text)",
+            background: "var(--color-ink)",
+            textDecoration: "none",
+          }}
+        >
+          Get Directions ↗
+        </a>
+      )}
     </div>
   );
 }
