@@ -114,7 +114,7 @@ function businessNode() {
     url: siteUrl,
     image: [
       absoluteUrl("/assets/hero-storefront.png"),
-      absoluteUrl("/assets/hero-cafe.jpg"),
+      absoluteUrl("/assets/hero-cafe.png"),
     ],
     logo: absoluteUrl("/assets/tarte-logo.png"),
     telephone: site.contact.phone,

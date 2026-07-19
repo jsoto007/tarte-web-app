@@ -66,12 +66,12 @@
     }
   ],
   "specialties": [
-    { "title": "Signature Pastries", "caption": "Croissants, tarts, and morning bakes — the thing we're known for, made with care.", "img": "/assets/menu/croissant2.jpg" },
+    { "title": "Signature Pastries", "caption": "Croissants, tarts, and morning bakes — the thing we're known for, made with care.", "img": "/assets/menu/tarte_nutella_danish_web_optimized.jpg" },
     { "title": "Fresh-Baked Bread", "caption": "We bake our own bread fresh every morning, from recipes years in the making.", "img": "/assets/menu/croissanttray.jpg" },
-    { "title": "Hot Breakfast", "caption": "Eggs, omelets, and pancakes served hot and fresh with real ingredients.", "img": "/assets/menu/croissantcoaster.jpg" },
-    { "title": "Homemade Sandwiches", "caption": "Burgers, Philly steaks, and wraps built on bread we bake daily.", "img": "/assets/menu/breadplate.jpg" },
+    { "title": "Hot Breakfast", "caption": "Eggs, omelets, and pancakes served hot and fresh with real ingredients.", "img": "/assets/menu/tarte_breakfast_professional_web.jpg" },
+    { "title": "Homemade Sandwiches", "caption": "Burgers, Philly steaks, and wraps built on bread we bake daily.", "img": "/assets/menu/sausage-peppers-sandwich.jpg" },
     { "title": "Coffee, Every Way", "caption": "Espresso, lattes, cortados, and seasonal specialties brewed all day.", "img": "/assets/menu/cappuccino.jpg" },
-    { "title": "Cold & Iced", "caption": "Freddo, cold brew, and iced lattes for the warmer afternoons.", "img": "/assets/menu/coldbrew.jpg" }
+    { "title": "Custom Cakes", "caption": "Made-to-order cakes for birthdays, gatherings, and special occasions.", "img": "/assets/menu/blue_cake.png" }
   ],
   "stats": [
     { "value": "2025", "label": "Founded" },
