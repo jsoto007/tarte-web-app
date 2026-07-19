@@ -253,8 +253,8 @@ export default function Home() {
               }}
             >
               <Image
-                src="/assets/menu/croissantstable.jpg"
-                alt="Fresh pastries arranged on the Tarte pastry table"
+                src="/assets/menu/croissants_table.jpg"
+                alt="Fresh croissants on a baking tray at Tarte"
                 fill
                 sizes="(max-width: 900px) 100vw, 560px"
                 style={{ objectFit: "cover" }}
@@ -297,19 +297,19 @@ export default function Home() {
             <div style={{ display: "grid", gap: 16 }}>
               {[
                 {
-                  src: "/assets/menu/croissant2.jpg",
-                  alt: "Golden croissant from Tarte",
+                  src: "/assets/menu/pain_au_chocolat.jpg",
+                  alt: "Pain au chocolat from Tarte",
                   label: "Laminated",
                 },
                 {
-                  src: "/assets/menu/breadplate.jpg",
-                  alt: "Tarte dessert plate",
+                  src: "/assets/menu/tarte_nutella_danish_web_optimized.jpg",
+                  alt: "Nutella Danish from Tarte",
                   label: "Filled",
                 },
                 {
-                  src: "/assets/menu/croissanttray.jpg",
-                  alt: "Tray of fresh pastries",
-                  label: "Boxed",
+                  src: "/assets/menu/blue_cake.png",
+                  alt: "Custom celebration cake from Tarte",
+                  label: "Celebration",
                 },
               ].map((item) => (
                 <div

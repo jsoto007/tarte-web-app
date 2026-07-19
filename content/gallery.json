@@ -2,7 +2,7 @@
   { "label": "Morning Pour", "img": "/assets/menu/latte.jpg", "category": "Coffee", "featured": true },
   { "label": "Fresh Croissants", "img": "/assets/menu/croissants_table.jpg", "category": "Pastries", "featured": false },
   { "label": "Latte Art", "img": "/assets/menu/cappuccino.jpg", "category": "Coffee", "featured": false },
-  { "label": "Espresso Bar", "img": "/assets/hero-cafe.png", "category": "Coffee", "featured": false },
+  { "label": "Espresso Bar", "img": "/assets/hero-cafe_2.jpg", "category": "Coffee", "featured": false },
   { "label": "Hot Breakfast", "img": "/assets/menu/tarte_breakfast_professional_web.jpg", "category": "Breakfast", "featured": false },
   { "label": "Specialty Cake", "img": "/assets/menu/blue_cake.png", "category": "Specialty Cakes", "featured": true },
   { "label": "Cold Brew Bar", "img": "/assets/menu/coldbrew.jpg", "category": "Coffee", "featured": false },

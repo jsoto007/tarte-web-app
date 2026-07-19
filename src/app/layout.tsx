@@ -99,7 +99,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${outfit.variable}`}>
+    <html
+      lang="en"
+      className={`${cormorant.variable} ${outfit.variable}`}
+      suppressHydrationWarning
+    >
       <body>
         <a href="#main" className="skip-link">
           Skip to content
