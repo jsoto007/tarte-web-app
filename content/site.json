@@ -70,7 +70,7 @@
     { "title": "Fresh-Baked Bread", "caption": "We bake our own bread fresh every morning, from recipes years in the making.", "img": "/assets/menu/croissanttray.jpg" },
     { "title": "Hot Breakfast", "caption": "Eggs, omelets, and pancakes served hot and fresh with real ingredients.", "img": "/assets/menu/tarte_breakfast_professional_web.jpg" },
     { "title": "Homemade Sandwiches", "caption": "Burgers, Philly steaks, and wraps built on bread we bake daily.", "img": "/assets/menu/sausage-peppers-sandwich.jpg" },
-    { "title": "Coffee, Every Way", "caption": "Espresso, lattes, cortados, and seasonal specialties brewed all day.", "img": "/assets/menu/cappuccino.jpg" },
+    { "title": "Coffee, Every Way", "caption": "Espresso, lattes, cortados, and seasonal specialties brewed all day.", "img": "/assets/menu/espresso.png" },
     { "title": "Custom Cakes", "caption": "Made-to-order cakes for birthdays, gatherings, and special occasions.", "img": "/assets/menu/blue_cake.png" }
   ],
   "stats": [
