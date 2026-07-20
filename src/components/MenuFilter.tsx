@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useRef, useState } from "react";
 import { galleryCategories } from "@/data/gallery";
 import { menu, menuGroups } from "@/data/menu";
@@ -171,22 +170,6 @@ export function MenuFilter() {
                       borderBottom: "1px dashed rgba(36,24,19,0.14)",
                     }}
                   >
-                    {it.img && (
-                      <Image
-                        src={it.img}
-                        alt={it.name}
-                        width={64}
-                        height={64}
-                        style={{
-                          width: 64,
-                          height: 64,
-                          flex: "none",
-                          borderRadius: 12,
-                          objectFit: "cover",
-                          boxShadow: "0 6px 16px rgba(40,24,12,0.18)",
-                        }}
-                      />
-                    )}
                     <div style={{ flex: 1 }}>
                       <div
                         style={{

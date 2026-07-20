@@ -8,8 +8,6 @@ export type MenuItem = {
   priceSuffix?: string;
   /** Optional one-line description. */
   desc?: string;
-  /** Optional public path to a thumbnail, e.g. "/assets/menu/espresso.jpg". */
-  img?: string;
 };
 
 export type MenuSection = {

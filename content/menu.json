@@ -26,10 +26,10 @@
     "items": [
       { "name": "Croissants", "price": "4.00" },
       { "name": "Almond Croissants", "price": "4.50" },
-      { "name": "Pain au Chocolate", "price": "4.50", "img": "/assets/menu/pain_au_chocolat.jpg" },
+      { "name": "Pain au Chocolate", "price": "4.50" },
       { "name": "Ham & Cheese", "price": "6.00" },
       { "name": "Strawberry Danish", "price": "5.00" },
-      { "name": "Nutella Danish", "price": "5.00", "img": "/assets/menu/tarte_nutella_danish_web_optimized.jpg" }
+      { "name": "Nutella Danish", "price": "5.00" }
     ]
   },
   {
@@ -42,8 +42,7 @@
         "name": "Custom Specialty Cake",
         "price": "9.00",
         "priceSuffix": " / person",
-        "desc": "Made to order for birthdays, gatherings, and special occasions.",
-        "img": "/assets/menu/tarte_birthday_cake_professional_web.jpg"
+        "desc": "Made to order for birthdays, gatherings, and special occasions."
       }
     ]
   },
@@ -54,7 +53,7 @@
     "note": "On our homemade bread, baked fresh daily. With French fries on the side.",
     "items": [
       { "name": "Burger", "price": "16.00" },
-      { "name": "Sausage & Peppers", "price": "16.00", "img": "/assets/menu/sausage-peppers-sandwich.jpg" },
+      { "name": "Sausage & Peppers", "price": "16.00" },
       { "name": "Philly Cheese Steak", "price": "18.00" },
       { "name": "Steak & Eggs", "price": "20.00" },
       { "name": "Grilled Chicken", "price": "16.00" },
@@ -79,7 +78,7 @@
     "note": "Made hot and fresh with real ingredients. With home fries & toast on the side.",
     "items": [
       { "name": "Ham & Mozzarella", "price": "12.00" },
-      { "name": "Sausage & Mozzarella", "price": "12.00", "img": "/assets/menu/tarte_breakfast_professional_web.jpg" },
+      { "name": "Sausage & Mozzarella", "price": "12.00" },
       { "name": "Bacon & Mozzarella", "price": "12.00" }
     ]
   },
@@ -123,12 +122,12 @@
     "items": [
       { "name": "House Drip", "price": "2.50" },
       { "name": "Americano", "price": "3.00" },
-      { "name": "Espresso", "price": "2.50", "img": "/assets/menu/espresso.png" },
+      { "name": "Espresso", "price": "2.50" },
       { "name": "Double Espresso", "price": "3.50" },
       { "name": "Macchiato", "price": "4.00" },
       { "name": "Cortado", "price": "3.00" },
       { "name": "Cappuccino", "price": "4.50" },
-      { "name": "Latte / Flat White", "price": "5.00", "img": "/assets/menu/latte.jpg" },
+      { "name": "Latte / Flat White", "price": "5.00" },
       { "name": "Mocha", "price": "5.00" },
       { "name": "Hot Chocolate", "price": "5.00" }
     ]

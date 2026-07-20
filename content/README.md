@@ -48,9 +48,10 @@ and a list of `items`.
 
 Put image files in `public/assets/` (or `public/assets/menu/`) and reference
 them by path, e.g. `"/assets/menu/croissant.jpg"`. Gallery tiles in
-`gallery.json` use this.
+`gallery.json` use this. Add each photo to the matching gallery category
+(`"Coffee"`, `"Pastries"`, `"Breakfast"`, `"Sandwiches"`, or
+`"Specialty Cakes"`) so menu sections can link visitors to the corresponding
+filtered gallery view.
 
 The menu itself is **text-only** (no photos) — items in `menu.json` just have a
-`name` and `price`. If you ever want to add a photo to a menu item, drop the
-image in `public/assets/menu/` and add an `"img"` field to that item, e.g.
-`{ "name": "Croissants", "price": "4.00", "img": "/assets/menu/croissant.jpg" }`.
+`name`, optional `price`, optional `priceSuffix`, and optional `desc`.

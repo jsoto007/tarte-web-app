@@ -15,9 +15,7 @@ import {
 
 const publicPath = (img: string) => join(process.cwd(), "public", img);
 
-// Only items that actually have a photo (most real menu items don't).
 const allImages = [
-  ...menu.flatMap((s) => s.items.map((i) => i.img)).filter(Boolean),
   ...gallery.map((g) => g.img),
   ...specialties.map((s) => s.img),
 ] as string[];
