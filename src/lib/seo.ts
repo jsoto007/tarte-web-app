@@ -17,7 +17,7 @@ export const siteUrl = (
  * consistent summary of the business everywhere.
  */
 export const siteDescription =
-  "Homemade pastries, fresh bakes, cozy coffee, and handcrafted drinks on Middletown Road in the Bronx since 2025.";
+  "Homemade pastries, fresh bakes, cozy coffee, and handcrafted drinks on Middletown Road in Pelham Bay, the Bronx — since 2025.";
 
 /** Absolute URL helper for metadata/JSON-LD (accepts a root-relative path). */
 export const absoluteUrl = (path: string) =>

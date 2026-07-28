@@ -8,6 +8,7 @@
   "contact": {
     "addressLine": "2960 Middletown Rd",
     "district": "Bronx, NY 10461",
+    "neighborhood": "Pelham Bay",
     "locality": "Bronx",
     "region": "NY",
     "postalCode": "10461",
@@ -17,7 +18,9 @@
   },
   "social": {
     "instagram": "https://www.instagram.com/tartecoffee",
-    "instagramHandle": "@tartecoffee"
+    "instagramHandle": "@tartecoffee",
+    "googleMaps": "https://www.google.com/maps?cid=7810678995570135128",
+    "yelp": "https://www.yelp.com/biz/tarte-bakes-and-coffee-shop-the-bronx"
   },
   "geo": {
     "latitude": 40.8436477,

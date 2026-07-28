@@ -85,7 +85,7 @@ function organizationNode() {
       "@type": "ImageObject",
       url: absoluteUrl("/assets/tarte-logo.png"),
     },
-    sameAs: [social.instagram],
+    sameAs: [social.instagram, social.googleMaps, social.yelp].filter(Boolean),
   };
 }
 
@@ -136,11 +136,21 @@ function businessNode() {
       latitude: geo.latitude,
       longitude: geo.longitude,
     },
-    hasMap: directionsUrl,
-    areaServed: { "@type": "City", name: "The Bronx" },
+    // Canonical Google Maps place URL (ties this site to the exact Google
+    // Business Profile listing); directions link is kept on the Organization.
+    hasMap: social.googleMaps ?? directionsUrl,
+    areaServed: [
+      { "@type": "Place", name: "Pelham Bay, Bronx" },
+      { "@type": "Place", name: "Middletown, Bronx" },
+      { "@type": "Place", name: "Westchester Square, Bronx" },
+      { "@type": "Place", name: "Throggs Neck, Bronx" },
+      { "@type": "City", name: "The Bronx" },
+    ],
+    keywords:
+      "coffee shop Pelham Bay, bakery Pelham Bay, coffee shop Bronx 10461, pastries Middletown Road, cafe near Pelham Bay Park",
     hasMenu: absoluteUrl("/menu"),
     acceptsReservations: absoluteUrl("/visit"),
-    sameAs: [social.instagram],
+    sameAs: [social.instagram, social.googleMaps, social.yelp].filter(Boolean),
     parentOrganization: { "@id": ORG_ID },
     openingHoursSpecification: openingHours(),
   };

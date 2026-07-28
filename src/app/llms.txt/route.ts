@@ -44,6 +44,9 @@ ${site.tagline}
 - Type: Coffee shop & bakery (cafe)
 - Established: ${site.established}
 - Address: ${site.contact.addressLine}, ${site.contact.district}
+- Neighborhood: ${site.contact.neighborhood}, the Bronx (near Pelham Bay Park)
+- Google Maps: ${social.googleMaps}
+- Yelp: ${social.yelp}
 - Coordinates: ${geo.latitude}, ${geo.longitude}
 - Phone: ${site.contact.phone}
 - Email: ${site.contact.email}

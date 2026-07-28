@@ -27,7 +27,7 @@ const description = siteDescription;
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Tarte — Coffee Shop & Bakes in the Bronx",
+    default: "Tarte — Coffee Shop & Bakes in Pelham Bay, Bronx",
     template: "%s · Tarte",
   },
   description,
@@ -40,8 +40,12 @@ export const metadata: Metadata = {
   keywords: [
     "coffee shop",
     "coffee shop Bronx",
+    "coffee shop Pelham Bay",
     "bakery",
     "bakery Bronx",
+    "bakery Pelham Bay",
+    "cafe near Pelham Bay Park",
+    "coffee shop 10461",
     "pastry shop",
     "espresso",
     "pastries",
@@ -58,6 +62,14 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/" },
   formatDetection: { telephone: true, address: true, email: true },
+  // Classic geo meta tags — low-cost local-relevance hints for crawlers that
+  // still read them (Bing, some directories). Coordinates match the JSON-LD.
+  other: {
+    "geo.region": "US-NY",
+    "geo.placename": "Pelham Bay, Bronx, New York",
+    "geo.position": `${site.geo.latitude};${site.geo.longitude}`,
+    ICBM: `${site.geo.latitude}, ${site.geo.longitude}`,
+  },
   robots: {
     index: true,
     follow: true,
@@ -72,7 +84,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Tarte Coffee Shop & Bakes",
-    title: "Tarte — Coffee Shop & Bakes in the Bronx",
+    title: "Tarte — Coffee Shop & Bakes in Pelham Bay, Bronx",
     description,
     url: siteUrl,
     locale: "en_US",
@@ -87,7 +99,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tarte — Coffee Shop & Bakes in the Bronx",
+    title: "Tarte — Coffee Shop & Bakes in Pelham Bay, Bronx",
     description,
     images: ["/assets/hero-storefront.png"],
   },
