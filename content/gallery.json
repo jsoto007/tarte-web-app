@@ -10,5 +10,6 @@
   { "label": "Sausage & Peppers", "img": "/assets/menu/sausage-peppers-sandwich.jpg", "category": "Sandwiches", "featured": false },
   { "label": "Bean Selection", "img": "/assets/menu/beans.jpg", "category": "Coffee", "featured": false },
   { "label": "Hand Pour", "img": "/assets/menu/cortado.jpg", "category": "Coffee", "featured": true },
-  { "label": "Birthday Cake", "img": "/assets/menu/tarte_birthday_cake_professional_web.jpg", "category": "Specialty Cakes", "featured": false }
+  { "label": "Birthday Cake", "img": "/assets/menu/tarte_birthday_cake_professional_web.jpg", "category": "Specialty Cakes", "featured": false },
+  { "label": "Lox Bagel", "img": "/assets/menu/lox-bagel.jpg", "category": "Breakfast", "featured": false }
 ]

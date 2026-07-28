@@ -80,8 +80,8 @@ describe("menu data", () => {
 });
 
 describe("gallery data", () => {
-  it("has 12 tiles", () => {
-    expect(gallery).toHaveLength(12);
+  it("has 13 tiles", () => {
+    expect(gallery).toHaveLength(13);
   });
 
   it("exposes All + the distinct categories as filter options", () => {
