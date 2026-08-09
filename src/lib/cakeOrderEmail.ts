@@ -124,8 +124,7 @@ export function customerCakeOrderEmail(
   fields: CakeOrderFields,
   total: string,
 ): { html: string; text: string } {
-  const notice =
-    "This is a request summary—not proof of payment or final confirmation. We’ll follow up to confirm availability and finalize your order.";
+  const notice = `This is a request summary—not proof of payment or final confirmation. We’ll contact you to finalize payment and confirm your order. If you need help sooner, call us at ${site.contact.phone}.`;
   return {
     html: emailShell({
       preheader: `We received your Tarte cake request for ${formatDate(fields.dateNeeded)}.`,
