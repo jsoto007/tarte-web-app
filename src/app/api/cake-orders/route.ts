@@ -1,18 +1,19 @@
 import { NextResponse } from "next/server";
 import {
-  CAKE_PRICE_PER_PERSON_CENTS,
   MAX_CAKE_ATTACHMENT_BYTES,
   MAX_CAKE_ATTACHMENT_COUNT,
   MAX_CAKE_ATTACHMENTS_TOTAL_BYTES,
-  cakeOrderCopy,
 } from "@/data/cakeOrder";
 import {
   cakeTotalCents,
-  escapeHtml,
   formatUsd,
   type CakeOrderFields,
   validateCakeOrder,
 } from "@/lib/cakeOrder";
+import {
+  customerCakeOrderEmail,
+  restaurantCakeOrderEmail,
+} from "@/lib/cakeOrderEmail";
 
 export const runtime = "nodejs";
 
@@ -46,12 +47,6 @@ function getFields(data: FormData): CakeOrderFields {
     messageOnCake: text("messageOnCake"),
     additionalNotes: text("additionalNotes"),
   };
-}
-
-function orderHtml(fields: CakeOrderFields, total: string): string {
-  const row = (label: string, value: string) =>
-    `<tr><th align="left" style="padding:6px 12px 6px 0">${label}</th><td style="padding:6px 0">${escapeHtml(value || "—")}</td></tr>`;
-  return `<table>${row("Customer", fields.customerName)}${row("Email", fields.customerEmail)}${row("Date needed", fields.dateNeeded)}${row("Time needed", fields.timeNeeded)}${row("People", fields.numberOfPeople)}${row("Flavor", fields.flavor)}${row("Message on cake", fields.messageOnCake)}${row("Additional notes", fields.additionalNotes)}${row("Estimated total", `${total} (${formatUsd(CAKE_PRICE_PER_PERSON_CENTS)} per person)`)}</table>`;
 }
 
 async function hasAllowedSignature(file: File): Promise<boolean> {
@@ -136,7 +131,8 @@ export async function POST(request: Request) {
     const from = process.env.MAILGUN_FROM_EMAIL?.trim() || `Tarte Cake Orders <orders@${domain}>`;
     const totalCents = cakeTotalCents(fields.numberOfPeople)!;
     const total = formatUsd(totalCents);
-    const details = orderHtml(fields, total);
+    const restaurantEmailContent = restaurantCakeOrderEmail(fields, total, attachments.length);
+    const customerEmailContent = customerCakeOrderEmail(fields, total);
 
     const restaurantMessage = new FormData();
     restaurantMessage.set("from", from);
@@ -144,7 +140,8 @@ export async function POST(request: Request) {
     restaurantMessage.set("h:Reply-To", fields.customerEmail);
     const subjectName = fields.customerName.replace(/[\r\n]+/g, " ");
     restaurantMessage.set("subject", `Specialty cake request — ${subjectName} — ${fields.dateNeeded}`);
-    restaurantMessage.set("html", `<h1>New specialty cake request</h1>${details}`);
+    restaurantMessage.set("html", restaurantEmailContent.html);
+    restaurantMessage.set("text", restaurantEmailContent.text);
     for (const file of attachments) {
       const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 120) || "attachment";
       restaurantMessage.append("attachment", file, safeName);
@@ -155,10 +152,8 @@ export async function POST(request: Request) {
     customerMessage.set("to", fields.customerEmail);
     customerMessage.set("h:Reply-To", restaurantEmail);
     customerMessage.set("subject", "We received your Tarte specialty cake request");
-    customerMessage.set(
-      "html",
-      `<h1>${cakeOrderCopy.successTitle}</h1><p>${cakeOrderCopy.successBody}</p>${details}<p><strong>This is a request summary, not proof of payment or final confirmation.</strong></p>`,
-    );
+    customerMessage.set("html", customerEmailContent.html);
+    customerMessage.set("text", customerEmailContent.text);
 
     await sendMailgun(apiKey, domain, restaurantMessage);
     let receiptSent = true;

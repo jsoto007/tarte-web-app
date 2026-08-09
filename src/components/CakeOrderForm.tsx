@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import {
   CAKE_PRICE_PER_PERSON_CENTS,
   MAX_CAKE_ATTACHMENT_BYTES,
@@ -38,12 +38,27 @@ export function CakeOrderForm() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
   const [receiptSent, setReceiptSent] = useState(true);
   const baseId = useId();
+  const successRef = useRef<HTMLElement>(null);
   const id = (field: CakeOrderField) => `${baseId}-${field}`;
   const errorId = (field: CakeOrderField) => `${id(field)}-error`;
   const totalCents = useMemo(
     () => cakeTotalCents(values.numberOfPeople),
     [values.numberOfPeople],
   );
+
+  useEffect(() => {
+    if (status !== "success") return;
+    const panel = successRef.current;
+    if (!panel) return;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    panel.scrollIntoView({
+      behavior: reduceMotion ? "auto" : "smooth",
+      block: "center",
+    });
+    panel.focus({ preventScroll: true });
+  }, [status]);
 
   const set = (field: CakeOrderField, value: string) => {
     setValues((current) => ({ ...current, [field]: value }));
@@ -103,7 +118,7 @@ export function CakeOrderForm() {
 
   if (status === "success") {
     return (
-      <section className="cake-form-panel" aria-labelledby="cake-success-title" role="status" tabIndex={-1}>
+      <section ref={successRef} className="cake-form-panel" aria-labelledby="cake-success-title" role="status" tabIndex={-1}>
         <h2 id="cake-success-title">{cakeOrderCopy.successTitle}</h2>
         <p>{receiptSent ? cakeOrderCopy.successBody : "The restaurant received your request, but we could not send your email copy. They will follow up to confirm availability."}</p>
         <p><strong>Estimated total: {formatUsd(totalCents!)}</strong></p>

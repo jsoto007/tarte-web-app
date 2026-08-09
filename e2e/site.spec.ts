@@ -122,7 +122,10 @@ test.describe("specialty cake request", () => {
     await expect(form.getByText(/large-inspiration-optimized\.webp/)).toBeVisible();
     await expect(form.getByText("Estimated total: $108.00")).toBeVisible();
     await form.getByRole("button", { name: "Send Cake Request" }).click();
-    await expect(page.getByRole("heading", { name: "Your cake request is in" })).toBeVisible();
+    const confirmation = page.getByRole("heading", { name: "Your cake request is in" });
+    await expect(confirmation).toBeVisible();
+    await expect(confirmation.locator("..")).toBeFocused();
+    await expect(confirmation).toBeInViewport();
     expect(submittedBody).toContain("large-inspiration-optimized.webp");
     expect(submittedBody).toContain("image/webp");
   });
