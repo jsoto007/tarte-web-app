@@ -82,13 +82,46 @@ test.describe("menu gallery links", () => {
   });
 });
 
+test.describe("specialty cake request", () => {
+  test("opens from Specialty Cakes, shows the estimate, and submits", async ({ page }) => {
+    await page.route("**/api/cake-orders", (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ ok: true }),
+      }),
+    );
+    await page.goto("/menu");
+    const section = page
+      .getByRole("heading", { level: 2, name: "Specialty Cakes" })
+      .locator("..");
+    await section.getByRole("link", { name: "Order Online" }).click();
+    await expect(page).toHaveURL("/order-cake");
+
+    const form = page.locator("form");
+    await form.getByRole("button", { name: "Send Cake Request" }).click();
+    await expect(form.getByRole("alert")).toHaveCount(6);
+    await form.getByLabel("Customer name *").fill("Jane Rivera");
+    await form.getByLabel("Email *").fill("jane@example.com");
+    const future = new Date();
+    future.setUTCFullYear(future.getUTCFullYear() + 1);
+    await form.getByLabel("Date needed *").fill(future.toISOString().slice(0, 10));
+    await form.getByLabel("Time needed *").fill("15:30");
+    await form.getByLabel("Number of people *").fill("12");
+    await form.getByLabel("Flavor *").selectOption("Red Velvet");
+    await expect(form.getByText("Estimated total: $108.00")).toBeVisible();
+    await form.getByRole("button", { name: "Send Cake Request" }).click();
+    await expect(page.getByRole("heading", { name: "Your cake request is in" })).toBeVisible();
+  });
+});
+
 test.describe("directions links", () => {
   test("home directions button and map open Google Maps directions", async ({ page }) => {
     await page.goto("/");
     const expected =
       "https://www.google.com/maps/dir/?api=1&destination=2960%20Middletown%20Rd%2C%20Bronx%2C%20NY%2010461";
 
-    await expect(page.getByRole("link", { name: "Get Directions" })).toHaveAttribute(
+    await expect(page.locator("#main").getByRole("link", { name: "Get Directions" })).toHaveAttribute(
       "href",
       expected,
     );
@@ -154,7 +187,7 @@ test.describe("responsive nav", () => {
   });
 });
 
-const routes = ["/", "/menu", "/gallery", "/about", "/visit"];
+const routes = ["/", "/menu", "/gallery", "/about", "/visit", "/order-cake"];
 for (const route of routes) {
   test(`no console errors on ${route}`, async ({ page }) => {
     const errors: string[] = [];

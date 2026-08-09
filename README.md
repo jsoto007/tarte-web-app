@@ -73,6 +73,15 @@ Submissions appear in your Netlify dashboard under **Forms**.
 After the first deploy, confirm form detection is enabled in the Netlify UI
 (**Site configuration → Forms**). You can add email notifications there.
 
+The specialty cake form posts to a Next.js route handled by Netlify and sends
+the restaurant request plus customer confirmation through Mailgun. Configure:
+
+- `MAILGUN_API_KEY` — private Mailgun API key
+- `MAILGUN_DOMAIN` — verified Mailgun sending domain
+- `CAKE_ORDER_EMAIL` — restaurant inbox that receives cake requests
+- `MAILGUN_FROM_EMAIL` — optional full sender, such as `Tarte <orders@example.com>`
+- `MAILGUN_REGION=eu` — optional; omit for the US Mailgun endpoint
+
 ---
 
 ## Deploy to Netlify (connect the repo)

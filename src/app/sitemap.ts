@@ -19,7 +19,8 @@ const imagesFor = (href: string): string[] => {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
-  return navItems.map((item) => ({
+  const routes = [...navItems, { label: "Order a Specialty Cake", href: "/order-cake" }];
+  return routes.map((item) => ({
     url: `${siteUrl}${item.href === "/" ? "" : item.href}`,
     lastModified,
     changeFrequency: item.href === "/" ? "weekly" : "monthly",

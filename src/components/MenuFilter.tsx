@@ -131,6 +131,15 @@ export function MenuFilter() {
                       View in Gallery
                     </Button>
                   )}
+                {sec.title === "Specialty Cakes" && (
+                  <Button
+                    href="/order-cake"
+                    variant="accent"
+                    style={{ padding: "9px 16px", fontSize: 12, whiteSpace: "nowrap" }}
+                  >
+                    Order Online
+                  </Button>
+                )}
                 <div
                   style={{
                     flex: 1,
