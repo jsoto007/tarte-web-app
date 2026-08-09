@@ -84,13 +84,15 @@ test.describe("menu gallery links", () => {
 
 test.describe("specialty cake request", () => {
   test("opens from Specialty Cakes, shows the estimate, and submits", async ({ page }) => {
-    await page.route("**/api/cake-orders", (route) =>
-      route.fulfill({
+    let submittedBody = "";
+    await page.route("**/api/cake-orders", (route) => {
+      submittedBody = route.request().postDataBuffer()?.toString("latin1") ?? "";
+      return route.fulfill({
         status: 200,
         contentType: "application/json",
         body: JSON.stringify({ ok: true }),
-      }),
-    );
+      });
+    });
     await page.goto("/menu");
     const section = page
       .getByRole("heading", { level: 2, name: "Specialty Cakes" })
@@ -109,9 +111,20 @@ test.describe("specialty cake request", () => {
     await form.getByLabel("Time needed *").fill("15:30");
     await form.getByLabel("Number of people *").fill("12");
     await form.getByLabel("Flavor *").selectOption("Red Velvet");
+    await form.getByLabel("Inspiration attachments").setInputFiles({
+      name: "large-inspiration.png",
+      mimeType: "image/png",
+      buffer: Buffer.from(
+        "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=",
+        "base64",
+      ),
+    });
+    await expect(form.getByText(/large-inspiration-optimized\.webp/)).toBeVisible();
     await expect(form.getByText("Estimated total: $108.00")).toBeVisible();
     await form.getByRole("button", { name: "Send Cake Request" }).click();
     await expect(page.getByRole("heading", { name: "Your cake request is in" })).toBeVisible();
+    expect(submittedBody).toContain("large-inspiration-optimized.webp");
+    expect(submittedBody).toContain("image/webp");
   });
 });
 

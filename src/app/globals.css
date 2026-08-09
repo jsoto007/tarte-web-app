@@ -481,6 +481,9 @@ textarea.cake-input { resize: vertical; }
 .cake-input[aria-invalid="true"] { border-color: #a33c20; }
 .cake-error { margin: 6px 0 0; color: #96371f; font-size: 13px; }
 .cake-help { margin: 6px 0 0; color: rgba(36, 24, 19, 0.65); font-size: 12.5px; }
+.cake-file-list { margin: 10px 0 0; padding-left: 20px; color: var(--color-brown); font-size: 12.5px; }
+.cake-file-list li + li { margin-top: 4px; }
+.cake-file-list span { color: rgba(36, 24, 19, 0.62); }
 .cake-estimate { display: flex; justify-content: space-between; gap: 16px; padding: 16px; border-radius: 12px; background: var(--color-tan); }
 @media (max-width: 620px) {
   .cake-form-grid { grid-template-columns: 1fr; }

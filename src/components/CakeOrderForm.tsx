@@ -3,6 +3,9 @@
 import { useId, useMemo, useState } from "react";
 import {
   CAKE_PRICE_PER_PERSON_CENTS,
+  MAX_CAKE_ATTACHMENT_BYTES,
+  MAX_CAKE_ATTACHMENT_COUNT,
+  MAX_CAKE_ATTACHMENTS_TOTAL_BYTES,
   cakeFlavors,
   cakeOrderCopy,
 } from "@/data/cakeOrder";
@@ -13,6 +16,7 @@ import {
   type CakeOrderFields,
   validateCakeOrder,
 } from "@/lib/cakeOrder";
+import { formatFileSize, optimizeCakeImage } from "@/lib/imageOptimization";
 
 const empty: CakeOrderFields = {
   customerName: "",
@@ -28,6 +32,7 @@ const empty: CakeOrderFields = {
 export function CakeOrderForm() {
   const [values, setValues] = useState(empty);
   const [attachments, setAttachments] = useState<File[]>([]);
+  const [isOptimizing, setIsOptimizing] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<CakeOrderField, string>>>({});
   const [formError, setFormError] = useState("");
   const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
@@ -49,6 +54,15 @@ export function CakeOrderForm() {
     event.preventDefault();
     const nextErrors = validateCakeOrder(values);
     setErrors(nextErrors);
+    const attachmentBytes = attachments.reduce((sum, file) => sum + file.size, 0);
+    if (
+      attachments.length > MAX_CAKE_ATTACHMENT_COUNT ||
+      attachments.some((file) => file.size > MAX_CAKE_ATTACHMENT_BYTES) ||
+      attachmentBytes > MAX_CAKE_ATTACHMENTS_TOTAL_BYTES
+    ) {
+      setFormError("Attachments must total no more than 4 MB.");
+      return;
+    }
     setFormError("");
     const order: CakeOrderField[] = [
       "customerName",
@@ -167,13 +181,49 @@ export function CakeOrderForm() {
           type="file"
           accept="image/jpeg,image/png,image/webp,application/pdf"
           multiple
-          onChange={(e) => {
+          disabled={isOptimizing || status === "submitting"}
+          onChange={async (e) => {
             const files = Array.from(e.target.files ?? []);
-            setAttachments(files);
-            setFormError(files.length > 3 ? "Attach no more than 3 files." : "");
+            if (files.length > MAX_CAKE_ATTACHMENT_COUNT) {
+              setFormError("Attach no more than 3 files.");
+              setAttachments([]);
+              return;
+            }
+            setIsOptimizing(true);
+            setFormError("");
+            try {
+              const optimized = await Promise.all(
+                files.map((file) => optimizeCakeImage(file)),
+              );
+              const totalBytes = optimized.reduce((sum, file) => sum + file.size, 0);
+              if (
+                optimized.some((file) => file.size > MAX_CAKE_ATTACHMENT_BYTES) ||
+                totalBytes > MAX_CAKE_ATTACHMENTS_TOTAL_BYTES
+              ) {
+                setAttachments([]);
+                setFormError("The optimized attachments still exceed 4 MB. Please choose fewer files or a smaller PDF.");
+              } else {
+                setAttachments(optimized);
+              }
+            } catch {
+              setAttachments([]);
+              setFormError("We could not optimize one of those images. Please try a JPG, PNG, or WebP file.");
+            } finally {
+              setIsOptimizing(false);
+            }
           }}
         />
-        <p className="cake-help">Up to 3 JPG, PNG, WebP, or PDF files; 5 MB each and 10 MB total.</p>
+        <p className="cake-help">Up to 3 JPG, PNG, WebP, or PDF files. Photos are optimized before sending; PDFs count toward the 4 MB total.</p>
+        {isOptimizing && <p className="cake-help" role="status">Optimizing photos…</p>}
+        {!isOptimizing && attachments.length > 0 && (
+          <ul className="cake-file-list" aria-label="Files ready to send">
+            {attachments.map((file) => (
+              <li key={`${file.name}-${file.size}`}>
+                {file.name} <span>({formatFileSize(file.size)})</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       <div className="cake-estimate" aria-live="polite">
@@ -182,8 +232,8 @@ export function CakeOrderForm() {
       </div>
       <p className="cake-help">This request does not collect payment. Tarte will confirm availability and finalize the order with you.</p>
       {formError && <p className="cake-error" role="alert">{formError}</p>}
-      <button className="btn btn--accent" type="submit" disabled={status === "submitting" || attachments.length > 3}>
-        {status === "submitting" ? "Sending…" : cakeOrderCopy.submit}
+      <button className="btn btn--accent" type="submit" disabled={status === "submitting" || isOptimizing}>
+        {isOptimizing ? "Optimizing photos…" : status === "submitting" ? "Sending…" : cakeOrderCopy.submit}
       </button>
     </form>
   );

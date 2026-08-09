@@ -1,4 +1,7 @@
 export const CAKE_PRICE_PER_PERSON_CENTS = 900;
+export const MAX_CAKE_ATTACHMENT_COUNT = 3;
+export const MAX_CAKE_ATTACHMENT_BYTES = 4 * 1024 * 1024;
+export const MAX_CAKE_ATTACHMENTS_TOTAL_BYTES = 4 * 1024 * 1024;
 
 export const cakeFlavors = [
   "Vanilla",

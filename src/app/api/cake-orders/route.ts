@@ -1,5 +1,11 @@
 import { NextResponse } from "next/server";
-import { CAKE_PRICE_PER_PERSON_CENTS, cakeOrderCopy } from "@/data/cakeOrder";
+import {
+  CAKE_PRICE_PER_PERSON_CENTS,
+  MAX_CAKE_ATTACHMENT_BYTES,
+  MAX_CAKE_ATTACHMENT_COUNT,
+  MAX_CAKE_ATTACHMENTS_TOTAL_BYTES,
+  cakeOrderCopy,
+} from "@/data/cakeOrder";
 import {
   cakeTotalCents,
   escapeHtml,
@@ -10,9 +16,9 @@ import {
 
 export const runtime = "nodejs";
 
-const MAX_FILE_BYTES = 5 * 1024 * 1024;
-const MAX_TOTAL_BYTES = 10 * 1024 * 1024;
-const MAX_REQUEST_BYTES = 12 * 1024 * 1024;
+// Netlify's 6 MB buffered function limit becomes roughly 4.5 MB for binary
+// requests after Base64 encoding. Leave room for multipart field overhead.
+const MAX_REQUEST_BYTES = Math.floor(4.25 * 1024 * 1024);
 const rateLimits = new Map<string, { count: number; resetAt: number }>();
 const ALLOWED_FILE_TYPES = new Set([
   "image/jpeg",
@@ -107,21 +113,21 @@ export async function POST(request: Request) {
     const attachments = data
       .getAll("attachments")
       .filter((entry): entry is File => entry instanceof File && entry.size > 0);
-    if (attachments.length > 3) {
+    if (attachments.length > MAX_CAKE_ATTACHMENT_COUNT) {
       return NextResponse.json({ error: "Attach no more than 3 files." }, { status: 400 });
     }
     let totalAttachmentBytes = 0;
     for (const file of attachments) {
       totalAttachmentBytes += file.size;
-      if (!ALLOWED_FILE_TYPES.has(file.type) || file.size > MAX_FILE_BYTES || !(await hasAllowedSignature(file))) {
+      if (!ALLOWED_FILE_TYPES.has(file.type) || file.size > MAX_CAKE_ATTACHMENT_BYTES || !(await hasAllowedSignature(file))) {
         return NextResponse.json(
-          { error: "Attachments must be JPG, PNG, WebP, or PDF files no larger than 5 MB each." },
+          { error: "Attachments must be JPG, PNG, WebP, or PDF files within the 4 MB total limit." },
           { status: 400 },
         );
       }
     }
-    if (totalAttachmentBytes > MAX_TOTAL_BYTES) {
-      return NextResponse.json({ error: "Attachments may total no more than 10 MB." }, { status: 400 });
+    if (totalAttachmentBytes > MAX_CAKE_ATTACHMENTS_TOTAL_BYTES) {
+      return NextResponse.json({ error: "Attachments may total no more than 4 MB." }, { status: 400 });
     }
 
     const apiKey = env("MAILGUN_API_KEY");
