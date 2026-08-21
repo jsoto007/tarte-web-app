@@ -4,9 +4,9 @@
     "group": "Food",
     "galleryCategory": "Breakfast",
     "items": [
-      { "name": "Cream Cheese", "price": "4.00" },
-      { "name": "Lox", "price": "7.00" },
-      { "name": "Bacon, Egg & Cheese", "price": "7.00" }
+      { "name": "Cream Cheese", "price": "4.50" },
+      { "name": "Lox", "price": "9.00" },
+      { "name": "Bacon, Egg & Cheese", "price": "8.00" }
     ]
   },
   {
@@ -24,12 +24,12 @@
     "group": "Food",
     "galleryCategory": "Pastries",
     "items": [
-      { "name": "Croissants", "price": "4.00" },
-      { "name": "Almond Croissants", "price": "4.50" },
-      { "name": "Pain au Chocolate", "price": "4.50" },
+      { "name": "Croissants", "price": "4.50" },
+      { "name": "Almond Croissants", "price": "5.00" },
+      { "name": "Pain au Chocolate", "price": "5.00" },
       { "name": "Ham & Cheese", "price": "6.00" },
-      { "name": "Strawberry Danish", "price": "5.00" },
-      { "name": "Nutella Danish", "price": "5.00" }
+      { "name": "Strawberry Danish", "price": "5.50" },
+      { "name": "Nutella Danish", "price": "5.50" }
     ]
   },
   {
@@ -52,11 +52,11 @@
     "galleryCategory": "Sandwiches",
     "note": "On our homemade bread, baked fresh daily. With French fries on the side.",
     "items": [
-      { "name": "Burger", "price": "16.00" },
-      { "name": "Sausage & Peppers", "price": "16.00" },
-      { "name": "Philly Cheese Steak", "price": "18.00" },
-      { "name": "Steak & Eggs", "price": "20.00" },
-      { "name": "Grilled Chicken", "price": "16.00" },
+      { "name": "Burger", "price": "17.00" },
+      { "name": "Sausage & Peppers", "price": "17.00" },
+      { "name": "Philly Cheese Steak", "price": "19.00" },
+      { "name": "Steak & Eggs", "price": "21.00" },
+      { "name": "Grilled Chicken", "price": "17.00" },
       { "name": "Bacon, Egg & Cheese (no fries)", "price": "10.00" }
     ]
   },
@@ -66,9 +66,9 @@
     "galleryCategory": "Sandwiches",
     "note": "Baked fresh on our homemade focaccia.",
     "items": [
-      { "name": "Capresse", "price": "12.00" },
-      { "name": "Veggies Capresse", "price": "15.00" },
-      { "name": "Prosciutto", "price": "15.00" }
+      { "name": "Capresse", "price": "13.00" },
+      { "name": "Veggies Capresse", "price": "16.00" },
+      { "name": "Prosciutto", "price": "16.00" }
     ]
   },
   {
@@ -77,9 +77,11 @@
     "galleryCategory": "Breakfast",
     "note": "Made hot and fresh with real ingredients. With home fries & toast on the side.",
     "items": [
-      { "name": "Ham & Mozzarella", "price": "12.00" },
-      { "name": "Sausage & Mozzarella", "price": "12.00" },
-      { "name": "Bacon & Mozzarella", "price": "12.00" }
+      {
+        "name": "Eggs Any Style or Omelet",
+        "price": "16.00",
+        "desc": "Choose ham, sausage, or bacon; mozzarella, provolone, American, or cheddar."
+      }
     ]
   },
   {
@@ -90,7 +92,7 @@
       { "name": "Meat", "price": "6.00" },
       { "name": "Spinach", "price": "6.00" },
       { "name": "Cheese", "price": "6.00" },
-      { "name": "Semolina", "price": "7.00" },
+      { "name": "Semolina", "price": "8.00" },
       { "name": "Yogurt", "price": "2.50" }
     ]
   },
@@ -101,7 +103,6 @@
     "items": [
       { "name": "Cookies", "price": "2.50" },
       { "name": "Creme Caramel", "price": "7.00" },
-      { "name": "Baklava", "price": "6.00" },
       { "name": "Bundt Cake", "price": "6.00" },
       { "name": "Bread Pudding", "price": "2.50" },
       { "name": "Tricolor Cookies", "price": "2.50" },
@@ -113,23 +114,27 @@
     "group": "Food",
     "galleryCategory": "Breakfast",
     "note": "Served hot and fresh every morning, made with real ingredients.",
-    "items": [{ "name": "Pancakes", "price": "12.00" }]
+    "items": [
+      { "name": "Pancakes", "price": "13.00" },
+      { "name": "Omelette", "price": "8.00" }
+    ]
   },
   {
     "title": "Hot",
     "group": "Drinks",
     "galleryCategory": "Coffee",
     "items": [
-      { "name": "House Drip", "price": "2.50" },
-      { "name": "Americano", "price": "3.00" },
-      { "name": "Espresso", "price": "2.50" },
+      { "name": "House Drip", "price": "3.00" },
+      { "name": "Americano", "price": "3.50" },
+      { "name": "Espresso", "price": "3.00" },
       { "name": "Double Espresso", "price": "3.50" },
-      { "name": "Macchiato", "price": "4.00" },
-      { "name": "Cortado", "price": "3.00" },
-      { "name": "Cappuccino", "price": "4.50" },
+      { "name": "Macchiato", "price": "4.50" },
+      { "name": "Cortado", "price": "3.50" },
+      { "name": "Cappuccino", "price": "5.00" },
       { "name": "Latte / Flat White", "price": "5.00" },
-      { "name": "Mocha", "price": "5.00" },
-      { "name": "Hot Chocolate", "price": "5.00" }
+      { "name": "Mocha", "price": "5.50" },
+      { "name": "Hot Chocolate", "price": "5.50" },
+      { "name": "Hot Tea", "price": "3.50" }
     ]
   },
   {
@@ -138,9 +143,10 @@
     "galleryCategory": "Coffee",
     "note": "Hot and cold +$0.50",
     "items": [
-      { "name": "Nutella Latte", "price": "6.00" },
-      { "name": "Raspberry Mocha Latte", "price": "6.00" },
-      { "name": "Pistachio Latte", "price": "6.00" }
+      { "name": "Nutella Latte", "price": "6.50" },
+      { "name": "Raspberry Mocha Latte", "price": "6.50" },
+      { "name": "Pistachio Latte", "price": "6.50" },
+      { "name": "Matcha", "price": "7.00" }
     ]
   },
   {
@@ -178,12 +184,13 @@
       { "name": "Freddo Espresso", "price": "5.00" },
       { "name": "Iced Coffee", "price": "5.00" },
       { "name": "Iced Latte", "price": "5.50" },
-      { "name": "Sodas", "price": "2.25" },
+      { "name": "Iced Tea", "price": "4.50" },
+      { "name": "Sodas", "price": "2.50" },
       { "name": "Water Bottle", "price": "2.00" },
       { "name": "Still Water", "price": "4.00" },
       { "name": "Sparkling Water", "price": "4.50" },
       { "name": "Honest", "price": "2.00" },
-      { "name": "Celsius or Spindrift", "price": "3.50" }
+      { "name": "Spindrift", "price": "3.50" }
     ]
   }
 ]

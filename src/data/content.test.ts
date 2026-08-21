@@ -77,6 +77,34 @@ describe("menu data", () => {
       }
     }
   });
+
+  it("matches the August 2026 printed menu boards", () => {
+    const items = new Map(
+      menu.flatMap((section) =>
+        section.items.map((item) => [`${section.title}:${item.name}`, item.price]),
+      ),
+    );
+
+    expect(Object.fromEntries(items)).toMatchObject({
+      "Bagels:Cream Cheese": "4.50",
+      "Bagels:Lox": "9.00",
+      "Sandwiches & Wraps:Burger": "17.00",
+      "Focaccia:Capresse": "13.00",
+      "Eggs Any Style & Omelets:Eggs Any Style or Omelet": "16.00",
+      "Byrek:Semolina": "8.00",
+      "Breakfast:Pancakes": "13.00",
+      "Breakfast:Omelette": "8.00",
+      "Hot:House Drip": "3.00",
+      "Hot:Hot Tea": "3.50",
+      "Specialties:Matcha": "7.00",
+      "Cold:Iced Tea": "4.50",
+      "Cold:Sodas": "2.50",
+      "Cold:Spindrift": "3.50",
+    });
+
+    expect(items.has("Dessert:Baklava")).toBe(false);
+    expect(items.has("Cold:Celsius or Spindrift")).toBe(false);
+  });
 });
 
 describe("gallery data", () => {
