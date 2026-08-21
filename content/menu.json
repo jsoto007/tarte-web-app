@@ -28,6 +28,7 @@
       { "name": "Almond Croissants", "price": "5.00" },
       { "name": "Pain au Chocolate", "price": "5.00" },
       { "name": "Ham & Cheese", "price": "6.00" },
+      { "name": "Bundt Cake", "price": "6.00" },
       { "name": "Strawberry Danish", "price": "5.50" },
       { "name": "Nutella Danish", "price": "5.50" }
     ]
@@ -116,6 +117,7 @@
     "note": "Served hot and fresh every morning, made with real ingredients.",
     "items": [
       { "name": "Pancakes", "price": "13.00" },
+      { "name": "Eggs Any Style or Omelet", "price": "15.00" },
       { "name": "Omelette", "price": "8.00" }
     ]
   },
@@ -126,7 +128,7 @@
     "items": [
       { "name": "House Drip", "price": "3.00" },
       { "name": "Americano", "price": "3.50" },
-      { "name": "Espresso", "price": "3.00" },
+      { "name": "Espresso", "price": "3.50" },
       { "name": "Double Espresso", "price": "3.50" },
       { "name": "Macchiato", "price": "4.50" },
       { "name": "Cortado", "price": "3.50" },
@@ -180,16 +182,17 @@
     "group": "Drinks",
     "galleryCategory": "Coffee",
     "items": [
-      { "name": "Freddo Cappuccino", "price": "6.00" },
-      { "name": "Freddo Espresso", "price": "5.00" },
+      { "name": "Freddo Cappuccino", "price": "6.50" },
+      { "name": "Freddo Espresso", "price": "5.50" },
       { "name": "Iced Coffee", "price": "5.00" },
       { "name": "Iced Latte", "price": "5.50" },
       { "name": "Iced Tea", "price": "4.50" },
       { "name": "Sodas", "price": "2.50" },
-      { "name": "Water Bottle", "price": "2.00" },
-      { "name": "Still Water", "price": "4.00" },
+      { "name": "Water", "price": "2.00" },
+      { "name": "Still Water", "price": "4.50" },
       { "name": "Sparkling Water", "price": "4.50" },
-      { "name": "Honest", "price": "2.00" },
+      { "name": "Honest", "price": "2.50" },
+      { "name": "Red Bull", "price": "4.50" },
       { "name": "Spindrift", "price": "3.50" }
     ]
   }
