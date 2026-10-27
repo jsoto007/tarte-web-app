@@ -4,7 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { navItems } from "@/data/site";
+import { navItems, orderCta } from "@/data/site";
+
+/** Opens online ordering in a new tab; a tel: link needs no extra attributes. */
+const orderLinkProps = orderCta.external
+  ? { target: "_blank", rel: "noopener noreferrer" }
+  : {};
 
 export function Nav() {
   const pathname = usePathname();
@@ -43,7 +48,7 @@ export function Nav() {
         >
           <Image
             src="/assets/tarte-logo.png"
-            alt=""
+            alt="Tarte Bakes & Coffee Shop logo"
             width={52}
             height={52}
             priority
@@ -90,8 +95,9 @@ export function Nav() {
               </Link>
             );
           })}
-          <Link
-            href="/menu"
+          <a
+            href={orderCta.href}
+            {...orderLinkProps}
             className="btn btn--dark"
             style={{
               marginLeft: 8,
@@ -101,8 +107,8 @@ export function Nav() {
               padding: "11px 22px",
             }}
           >
-            Order Online
-          </Link>
+            {orderCta.label}
+          </a>
         </div>
 
         {/* Mobile toggle */}
@@ -156,14 +162,15 @@ export function Nav() {
             {item.label}
           </Link>
         ))}
-        <Link
-          href="/menu"
+        <a
+          href={orderCta.href}
+          {...orderLinkProps}
           className="btn btn--dark"
           style={{ marginTop: 12, alignSelf: "flex-start", padding: "12px 24px" }}
           onClick={() => setOpen(false)}
         >
-          Order Online
-        </Link>
+          {orderCta.label}
+        </a>
       </div>
     </header>
   );

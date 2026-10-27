@@ -1,5 +1,7 @@
 import { geo, hours, site, social } from "@/data/site";
 import { menu } from "@/data/menu";
+import { CAKE_PRICE_PER_PERSON_CENTS } from "@/data/cakeOrder";
+import { formatUsd } from "@/lib/cakeOrder";
 import { absoluteUrl, siteDescription, siteUrl } from "@/lib/seo";
 
 /**
@@ -41,7 +43,7 @@ function build(): string {
 ${site.tagline}
 
 ## Key facts
-- Type: Coffee shop & bakery (cafe)
+- Type: Bakery & coffee shop (cafe) in Pelham Bay, the Bronx
 - Established: ${site.established}
 - Address: ${site.contact.addressLine}, ${site.contact.district}
 - Neighborhood: ${site.contact.neighborhood}, the Bronx (near Pelham Bay Park)
@@ -60,7 +62,9 @@ ${hoursBlock}
 ## What we're known for
 Pastries and bread baked fresh every morning, hot breakfast, sandwiches on
 house-baked bread, and coffee in every style (espresso, lattes, cortados, cold
-brew, and seasonal specialties).
+brew, and seasonal specialties). Custom specialty cakes are made to order for
+birthdays and celebrations (${formatUsd(CAKE_PRICE_PER_PERSON_CENTS)} per person) — request one online at
+${absoluteUrl("/order-cake")}.
 
 ## Pages
 - [Home](${absoluteUrl("/")}): overview of the shop, specialties, and hours.
@@ -68,6 +72,7 @@ brew, and seasonal specialties).
 - [Gallery](${absoluteUrl("/gallery")}): photos from inside the shop.
 - [Our Story](${absoluteUrl("/about")}): the story behind Tarte.
 - [Visit](${absoluteUrl("/visit")}): hours, directions, and table requests.
+- [Order a Specialty Cake](${absoluteUrl("/order-cake")}): request a custom cake online.
 
 ## Full menu
 ${menuBlocks}

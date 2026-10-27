@@ -5,19 +5,14 @@ import { ReservationForm } from "@/components/ReservationForm";
 import { JsonLdScript } from "@/components/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 import { directionsUrl, emailHref, hours, phoneHref, site } from "@/data/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Visit",
+export const metadata: Metadata = pageMetadata({
+  title: "Hours & Directions | Tarte Bakery, 2960 Middletown Rd, Bronx",
   description:
-    "Visit Tarte at 2960 Middletown Rd, Bronx, NY 10461. See our hours, find & reach us, and request a table.",
-  alternates: { canonical: "/visit" },
-  openGraph: {
-    title: "Visit · Tarte",
-    description:
-      "Visit Tarte at 2960 Middletown Rd, Bronx, NY 10461. See our hours, find & reach us, and request a table.",
-    url: "/visit",
-  },
-};
+    "Visit Tarte, a Pelham Bay bakery & coffee shop at 2960 Middletown Rd, Bronx, NY 10461. Open 7 days a week: see hours, get directions, call, or request a table.",
+  path: "/visit",
+});
 
 const cardStyle = {
   background: "var(--color-card)",

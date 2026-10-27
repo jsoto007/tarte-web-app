@@ -14,6 +14,9 @@ const imagesFor = (href: string): string[] => {
   if (href === "/gallery") {
     return gallery.map((tile) => absoluteUrl(tile.img));
   }
+  if (href === "/order-cake") {
+    return [absoluteUrl("/assets/menu/blue_cake.png")];
+  }
   return [];
 };
 

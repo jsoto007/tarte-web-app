@@ -1,23 +1,18 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { GalleryGrid } from "@/components/GalleryGrid";
+import { GalleryGrid, GalleryGridView } from "@/components/GalleryGrid";
 import { InstagramHandle } from "@/components/InstagramIcon";
 import { PageHeader } from "@/components/PageHeader";
 import { JsonLdScript } from "@/components/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "The Gallery",
+export const metadata: Metadata = pageMetadata({
+  title: "Photo Gallery | Tarte – Pelham Bay Bakery & Coffee Shop, Bronx",
   description:
-    "Mornings, pours, and pastries from Tarte. A visual look inside the shop on Middletown Road — tag @tartecoffee to be featured.",
-  alternates: { canonical: "/gallery" },
-  openGraph: {
-    title: "The Gallery · Tarte",
-    description:
-      "Mornings, pours, and pastries from Tarte — a visual look inside the shop on Middletown Road.",
-    url: "/gallery",
-  },
-};
+    "Photos of pastries, coffee, breakfast & custom cakes from Tarte, a Pelham Bay bakery on Middletown Road in the Bronx. Tag @tartecoffee to be featured.",
+  path: "/gallery",
+});
 
 export default function GalleryPage() {
   return (
@@ -33,7 +28,7 @@ export default function GalleryPage() {
         title="The Gallery"
         subtitle="Mornings, pours, and pastries from the shop. Tag us to be featured."
       />
-      <Suspense fallback={null}>
+      <Suspense fallback={<GalleryGridView requestedCategory="All" />}>
         <GalleryGrid />
       </Suspense>
     </div>

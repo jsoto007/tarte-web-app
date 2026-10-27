@@ -97,7 +97,14 @@ This repo is deploy-ready. In the Netlify dashboard:
    - `NEXT_PUBLIC_SITE_URL` = `https://your-domain.com`
 4. **Deploy.** Every push to `main` redeploys automatically.
 
-No other environment variables are required.
+Optional (each is inert until set):
+
+- `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` — the token from Google Search
+  Console's "HTML tag" verification method (skip if verified by DNS).
+- `NEXT_PUBLIC_GA_MEASUREMENT_ID` — a GA4 ID (`G-…`). Loads Google Analytics and
+  records funnel events: `click_to_call`, `click_email`, `get_directions`,
+  `click_instagram`, `reservation_request`, `cake_order_request`. Mark the last
+  four (or whichever matter) as Key Events in GA4.
 
 ---
 

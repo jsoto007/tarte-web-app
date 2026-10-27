@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 import { isProd, submitNetlifyForm } from "@/lib/forms";
 import {
   isFutureOrToday,
@@ -73,6 +74,7 @@ export function ReservationForm() {
     setStatus("submitting");
     const ok = await submitNetlifyForm("reservation", values);
     setStatus(ok || !isProd ? "success" : "error");
+    if (ok) trackEvent("reservation_request");
   }
 
   const fieldProps = (k: keyof Values) => ({
