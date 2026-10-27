@@ -16,6 +16,7 @@ import {
   type CakeOrderFields,
   validateCakeOrder,
 } from "@/lib/cakeOrder";
+import { trackEvent } from "@/lib/analytics";
 import { formatFileSize, optimizeCakeImage } from "@/lib/imageOptimization";
 
 const empty: CakeOrderFields = {
@@ -110,6 +111,9 @@ export function CakeOrderForm() {
       }
       setReceiptSent(result.receiptSent !== false);
       setStatus("success");
+      trackEvent("cake_order_request", {
+        number_of_people: Number(values.numberOfPeople) || 0,
+      });
     } catch (error) {
       setStatus("idle");
       setFormError(error instanceof Error ? error.message : "Unable to send request.");

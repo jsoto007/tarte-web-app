@@ -14,3 +14,11 @@ export const menuGroups: string[] = [
   "All",
   ...Array.from(new Set(menu.map((s) => s.group))),
 ];
+
+/** URL-safe anchor id for a menu section title ("Sandwiches & Wraps" -> "sandwiches-wraps"). */
+export const sectionId = (title: string) =>
+  title
+    .toLowerCase()
+    .replace(/&/g, " ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");

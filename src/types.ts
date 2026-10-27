@@ -40,6 +40,8 @@ export type Specialty = {
   title: string;
   caption: string;
   img: string;
+  /** Optional deep link for the card, e.g. "/menu#pastries" or "/order-cake". */
+  href?: string;
 };
 
 export type Feature = {
