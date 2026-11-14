@@ -44,6 +44,22 @@ and a list of `items`.
 > Keep the quotes and commas exactly as shown — JSON is picky. If a commit
 > breaks the build, Netlify will email you; just undo the last change.
 
+## Links from Home to the menu
+
+Home's feature cards (`features`) and photo cards (`specialties`) in
+`site.json` link straight to a menu section with `"href": "/menu#<section>"`.
+The `<section>` part is the section's `title` in lowercase with spaces and
+`&` turned into dashes — e.g. `"Sandwiches & Wraps"` → `/menu#sandwiches-wraps`.
+If you rename a menu section, update those links too (the tests will flag a
+broken one).
+
+## Online ordering button
+
+The dark button in the top menu (and the "Order ahead" box on the Menu page)
+says **Call to Order** and dials the shop. If Tarte starts taking orders online
+(Toast, Square, DoorDash, …), paste that link into `"orderOnlineUrl"` in
+`site.json` — the button then reads **Order Online** and opens that page.
+
 ## Photos
 
 Put image files in `public/assets/` (or `public/assets/menu/`) and reference

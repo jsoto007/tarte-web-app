@@ -3,19 +3,14 @@ import { MenuFilter } from "@/components/MenuFilter";
 import { PageHeader } from "@/components/PageHeader";
 import { JsonLdScript } from "@/components/JsonLd";
 import { breadcrumbSchema, menuSchema } from "@/lib/schema";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "The Menu",
+export const metadata: Metadata = pageMetadata({
+  title: "Menu & Prices | Tarte – Pelham Bay Bakery & Coffee Shop",
   description:
-    "Browse Tarte's full menu — bagels, tarts, pastries, sandwiches & wraps, focaccia, omelets, byrek, dessert, and hot & cold drinks. Made fresh, with prices in USD.",
-  alternates: { canonical: "/menu" },
-  openGraph: {
-    title: "The Menu · Tarte",
-    description:
-      "Bagels, tarts, pastries, sandwiches, focaccia, omelets, byrek, dessert, and hot & cold drinks — made fresh, prices in USD.",
-    url: "/menu",
-  },
-};
+    "Tarte's full menu with prices: bagels, tarts, pastries, sandwiches & wraps, focaccia, omelets, byrek, custom cakes & coffee from our Pelham Bay bakery in the Bronx.",
+  path: "/menu",
+});
 
 export default function MenuPage() {
   return (

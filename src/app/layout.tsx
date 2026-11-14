@@ -3,7 +3,8 @@ import { Cormorant_Garamond, Outfit } from "next/font/google";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
-import { siteUrl, siteDescription } from "@/lib/seo";
+import { Analytics } from "@/components/Analytics";
+import { homeTitle, pageMetadata, siteUrl, siteDescription } from "@/lib/seo";
 import { site } from "@/data/site";
 import "./globals.css";
 
@@ -22,15 +23,24 @@ const outfit = Outfit({
   display: "swap",
 });
 
-const description = siteDescription;
+// Site-wide defaults (OG/Twitter fallbacks), the same as the homepage's.
+const homeMetadata = pageMetadata({
+  title: homeTitle,
+  description: siteDescription,
+  path: "/",
+});
+const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 export const metadata: Metadata = {
+  ...homeMetadata,
+  // The canonical lives on each page, so a page that forgets one never
+  // canonicalizes to the homepage.
+  alternates: undefined,
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Tarte — Coffee Shop & Bakes in Pelham Bay, Bronx",
-    template: "%s · Tarte",
+    default: homeTitle,
+    template: `%s | ${site.name}`,
   },
-  description,
   applicationName: "Tarte",
   authors: [{ name: site.fullName, url: siteUrl }],
   creator: site.fullName,
@@ -44,6 +54,9 @@ export const metadata: Metadata = {
     "bakery",
     "bakery Bronx",
     "bakery Pelham Bay",
+    "Pelham Bay bakery",
+    "custom cakes Bronx",
+    "birthday cakes Bronx",
     "cafe near Pelham Bay Park",
     "coffee shop 10461",
     "pastry shop",
@@ -60,7 +73,6 @@ export const metadata: Metadata = {
     "New York",
     "Tarte",
   ],
-  alternates: { canonical: "/" },
   formatDetection: { telephone: true, address: true, email: true },
   // Classic geo meta tags — low-cost local-relevance hints for crawlers that
   // still read them (Bing, some directories). Coordinates match the JSON-LD.
@@ -81,28 +93,10 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  openGraph: {
-    type: "website",
-    siteName: "Tarte Coffee Shop & Bakes",
-    title: "Tarte — Coffee Shop & Bakes in Pelham Bay, Bronx",
-    description,
-    url: siteUrl,
-    locale: "en_US",
-    images: [
-      {
-        url: "/assets/hero-storefront.png",
-        width: 1733,
-        height: 907,
-        alt: "The Tarte coffee shop storefront on Middletown Road",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Tarte — Coffee Shop & Bakes in Pelham Bay, Bronx",
-    description,
-    images: ["/assets/hero-storefront.png"],
-  },
+  // Google Search Console HTML-tag verification — set the token in Netlify.
+  ...(googleSiteVerification
+    ? { verification: { google: googleSiteVerification } }
+    : {}),
 };
 
 export default function RootLayout({
@@ -126,6 +120,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <JsonLd />
+        <Analytics />
       </body>
     </html>
   );

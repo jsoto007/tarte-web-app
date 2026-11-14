@@ -1,4 +1,6 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/Button";
 import { Eyebrow } from "@/components/Eyebrow";
 import { InstagramMarquee } from "@/components/InstagramMarquee";
@@ -13,6 +15,13 @@ import {
   specialties,
   storyTeaser,
 } from "@/data/site";
+import { homeTitle, pageMetadata, siteDescription } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  title: homeTitle,
+  description: siteDescription,
+  path: "/",
+});
 
 export default function Home() {
   return (
@@ -31,7 +40,7 @@ export default function Home() {
       >
         <Image
           src="/assets/hero-storefront.png"
-          alt="Watercolor of the Tarte coffee shop storefront"
+          alt="Watercolor of the Tarte bakery and coffee shop storefront at 2960 Middletown Road in Pelham Bay, Bronx"
           fill
           priority
           sizes="100vw"
@@ -58,7 +67,7 @@ export default function Home() {
         <div style={{ position: "relative", zIndex: 2, maxWidth: 640 }}>
           <Image
             src="/assets/tarte-logo-cream.png"
-            alt="Tarte Coffee Shop & Bakes"
+            alt={site.fullName}
             width={156}
             height={156}
             priority
@@ -101,6 +110,12 @@ export default function Home() {
               textShadow: "0 4px 30px rgba(0,0,0,0.4)",
             }}
           >
+            {/* Names the business and neighborhood for search engines and
+                screen readers; the visible headline is unchanged. */}
+            <span className="visually-hidden">
+              {site.fullName}, a Pelham Bay bakery &amp; coffee shop in the
+              Bronx:{" "}
+            </span>
             Homemade Bread,
             <br />
             <span style={{ fontStyle: "italic", color: "var(--color-accent-light)" }}>
@@ -119,7 +134,7 @@ export default function Home() {
           >
             Pastries we&apos;re known for, breakfast served hot every morning,
             sandwiches on bread we bake daily, and coffee in every style — all
-            made with real ingredients and years of recipes development.
+            made with real ingredients at our Pelham Bay bakery in the Bronx.
           </p>
           <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
             <Button
@@ -208,9 +223,9 @@ export default function Home() {
               >
                 {f.desc}
               </p>
-              <a href={f.href} className="link-accent">
+              <Link href={f.href} className="link-accent">
                 {f.linkLabel}
-              </a>
+              </Link>
             </div>
           ))}
         </div>
@@ -474,50 +489,70 @@ export default function Home() {
               gap: 26,
             }}
           >
-            {specialties.map((s) => (
-              <div
-                key={s.title}
-                style={{
-                  background: "var(--color-card)",
-                  borderRadius: 18,
-                  overflow: "hidden",
-                  border: "1px solid rgba(36,24,19,0.07)",
-                  boxShadow: "0 18px 40px rgba(58,36,24,0.08)",
-                }}
-              >
-                <div style={{ position: "relative", height: 200 }}>
-                  <Image
-                    src={s.img}
-                    alt={s.title}
-                    fill
-                    sizes="(max-width: 700px) 100vw, 380px"
-                    style={{ objectFit: "cover" }}
-                  />
+            {specialties.map((s) => {
+              const cardStyle = {
+                background: "var(--color-card)",
+                borderRadius: 18,
+                overflow: "hidden",
+                border: "1px solid rgba(36,24,19,0.07)",
+                boxShadow: "0 18px 40px rgba(58,36,24,0.08)",
+              } as const;
+              const body = (
+                <>
+                  <div style={{ position: "relative", height: 200 }}>
+                    <Image
+                      src={s.img}
+                      alt={`${s.title} at Tarte in Pelham Bay, Bronx`}
+                      fill
+                      sizes="(max-width: 700px) 100vw, 380px"
+                      style={{ objectFit: "cover" }}
+                    />
+                  </div>
+                  <div style={{ padding: "22px 24px 26px" }}>
+                    <h3
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: 23,
+                        fontWeight: 600,
+                        margin: "0 0 6px",
+                      }}
+                    >
+                      {s.title}
+                    </h3>
+                    <p
+                      style={{
+                        fontSize: 14,
+                        lineHeight: 1.55,
+                        color: "rgba(36,24,19,0.62)",
+                        margin: 0,
+                      }}
+                    >
+                      {s.caption}
+                    </p>
+                  </div>
+                </>
+              );
+              // Linked cards look identical; they just take visitors straight
+              // to the matching menu section (or the cake order form).
+              return s.href ? (
+                <Link
+                  key={s.title}
+                  href={s.href}
+                  style={{
+                    ...cardStyle,
+                    display: "block",
+                    color: "inherit",
+                    textDecoration: "none",
+                  }}
+                >
+                  {body}
+                </Link>
+              ) : (
+                <div key={s.title} style={cardStyle}>
+                  {body}
                 </div>
-                <div style={{ padding: "22px 24px 26px" }}>
-                  <h3
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: 23,
-                      fontWeight: 600,
-                      margin: "0 0 6px",
-                    }}
-                  >
-                    {s.title}
-                  </h3>
-                  <p
-                    style={{
-                      fontSize: 14,
-                      lineHeight: 1.55,
-                      color: "rgba(36,24,19,0.62)",
-                      margin: 0,
-                    }}
-                  >
-                    {s.caption}
-                  </p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

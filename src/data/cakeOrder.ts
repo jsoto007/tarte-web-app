@@ -17,7 +17,7 @@ export const cakeOrderCopy = {
   eyebrow: "Made to order",
   title: "Order a Specialty Cake",
   intro:
-    "Tell us what you’re celebrating and share any inspiration. Cake requests are $9 per person and are confirmed by the restaurant after review.",
+    "Custom cakes for birthdays & celebrations, baked in Pelham Bay. Share your inspiration — requests are $9 per person and confirmed by the restaurant after review.",
   submit: "Send Cake Request",
   successTitle: "Your cake request is in",
   successBody:

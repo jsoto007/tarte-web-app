@@ -147,6 +147,31 @@ test.describe("directions links", () => {
   });
 });
 
+test.describe("funnel links", () => {
+  test("home cards deep-link to the matching menu section and cake form", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("link", { name: "See Breakfast" }).click();
+    await expect(page).toHaveURL("/menu#breakfast");
+    await expect(
+      page.getByRole("heading", { level: 2, name: "Breakfast", exact: true }),
+    ).toBeInViewport();
+
+    await page.goto("/");
+    await page.getByRole("link", { name: /Custom Cakes/ }).first().click();
+    await expect(page).toHaveURL("/order-cake");
+  });
+
+  test("order CTA calls the shop and the footer links custom cakes", async ({ page }) => {
+    await page.goto("/menu");
+    await expect(
+      page.locator(".nav__links").getByRole("link", { name: "Call to Order" }),
+    ).toHaveAttribute("href", "tel:+19297779536");
+    await expect(
+      page.locator("footer").getByRole("link", { name: "Custom Cakes" }),
+    ).toHaveAttribute("href", "/order-cake");
+  });
+});
+
 test.describe("gallery lightbox", () => {
   test("opens, navigates with the keyboard, and closes", async ({ page }) => {
     await page.goto("/gallery");

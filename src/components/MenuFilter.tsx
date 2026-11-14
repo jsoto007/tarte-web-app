@@ -2,7 +2,8 @@
 
 import { useRef, useState } from "react";
 import { galleryCategories } from "@/data/gallery";
-import { menu, menuGroups } from "@/data/menu";
+import { menu, menuGroups, sectionId } from "@/data/menu";
+import { orderCta } from "@/data/site";
 import { Button } from "./Button";
 
 export function MenuFilter() {
@@ -92,7 +93,13 @@ export function MenuFilter() {
           }}
         >
           {visibleSections.map((sec) => (
-            <div key={sec.title}>
+            // The id is a deep-link target (/menu#breakfast) from Home; the
+            // scroll margin clears the sticky nav + filter bar above it.
+            <div
+              key={sec.title}
+              id={sectionId(sec.title)}
+              style={{ scrollMarginTop: 170 }}
+            >
               <div
                 style={{
                   display: "flex",
@@ -261,8 +268,15 @@ export function MenuFilter() {
             >
               Have it ready the moment you walk in.
             </p>
-            <Button href="/visit" variant="dark" style={{ padding: "14px 30px" }}>
-              Order Online
+            <Button
+              href={orderCta.href}
+              {...(orderCta.external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+              variant="dark"
+              style={{ padding: "14px 30px" }}
+            >
+              {orderCta.label}
             </Button>
           </div>
         </div>

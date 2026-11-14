@@ -1,4 +1,5 @@
-import { directionsUrl, geo, hours, site, social } from "@/data/site";
+import { directionsUrl, geo, hours, phoneE164, site, social } from "@/data/site";
+import { CAKE_PRICE_PER_PERSON_CENTS } from "@/data/cakeOrder";
 import { menu } from "@/data/menu";
 import { absoluteUrl, siteDescription, siteUrl } from "@/lib/seo";
 
@@ -113,11 +114,12 @@ function businessNode() {
     slogan: site.tagline,
     url: siteUrl,
     image: [
+      absoluteUrl("/assets/og-tarte.jpg"),
       absoluteUrl("/assets/hero-storefront.png"),
       absoluteUrl("/assets/hero-cafe.png"),
     ],
     logo: absoluteUrl("/assets/tarte-logo.png"),
-    telephone: site.contact.phone,
+    telephone: phoneE164,
     email: site.contact.email,
     foundingDate: String(site.established),
     priceRange: "$",
@@ -129,6 +131,7 @@ function businessNode() {
       "Pastries",
       "Breakfast",
       "Sandwiches",
+      "Custom Cakes",
     ],
     address: postalAddress,
     geo: {
@@ -147,9 +150,28 @@ function businessNode() {
       { "@type": "City", name: "The Bronx" },
     ],
     keywords:
-      "coffee shop Pelham Bay, bakery Pelham Bay, coffee shop Bronx 10461, pastries Middletown Road, cafe near Pelham Bay Park",
+      "Pelham Bay bakery, coffee shop Pelham Bay, bakery Bronx, coffee shop Bronx 10461, custom cakes Bronx, pastries Middletown Road, cafe near Pelham Bay Park",
     hasMenu: absoluteUrl("/menu"),
     acceptsReservations: absoluteUrl("/visit"),
+    // Made-to-order cakes are requested online (no payment taken), priced per
+    // guest — lets search and AI assistants answer "custom cakes in the Bronx".
+    makesOffer: {
+      "@type": "Offer",
+      name: "Custom specialty cakes",
+      url: absoluteUrl("/order-cake"),
+      itemOffered: {
+        "@type": "Service",
+        name: "Custom specialty cakes",
+        description:
+          "Made-to-order cakes for birthdays, gatherings, and celebrations.",
+      },
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: (CAKE_PRICE_PER_PERSON_CENTS / 100).toFixed(2),
+        priceCurrency: "USD",
+        unitText: "person",
+      },
+    },
     sameAs: [social.instagram, social.googleMaps, social.yelp].filter(Boolean),
     parentOrganization: { "@id": ORG_ID },
     openingHoursSpecification: openingHours(),

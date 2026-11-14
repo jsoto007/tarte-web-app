@@ -10,7 +10,12 @@ import {
 } from "@/data/site";
 import { Eyebrow } from "./Eyebrow";
 
-const exploreLinks = navItems.filter((n) => n.href !== "/");
+// Custom cakes are the highest-intent page but aren't in the main nav, so the
+// footer links them sitewide.
+const exploreLinks = [
+  ...navItems.filter((n) => n.href !== "/"),
+  { label: "Custom Cakes", href: "/order-cake" },
+];
 
 export function Footer() {
   return (
@@ -34,7 +39,7 @@ export function Footer() {
           >
             <Image
               src="/assets/tarte-logo-cream.png"
-              alt=""
+              alt={`${site.fullName} logo`}
               width={50}
               height={50}
               style={{ height: 50, width: 50, objectFit: "contain" }}

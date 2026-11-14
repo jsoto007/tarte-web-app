@@ -3,19 +3,14 @@ import { Eyebrow } from "@/components/Eyebrow";
 import { JsonLdScript } from "@/components/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 import { aboutProse, stats } from "@/data/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Our Story",
+export const metadata: Metadata = pageMetadata({
+  title: "Our Story | Tarte – Pelham Bay Bakery & Coffee Shop, Bronx",
   description:
-    "The story behind Tarte: a welcoming coffee shop built around great coffee, fresh pastries, family meaning, and community.",
-  alternates: { canonical: "/about" },
-  openGraph: {
-    title: "Our Story · Tarte",
-    description:
-      "The story behind Tarte: a welcoming coffee shop built around great coffee, fresh pastries, family meaning, and community.",
-    url: "/about",
-  },
-};
+    "The story behind Tarte, a neighborhood bakery & coffee shop in Pelham Bay, the Bronx, named for a favorite dessert and built around fresh pastries and community.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

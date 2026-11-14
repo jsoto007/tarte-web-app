@@ -30,8 +30,19 @@ export const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination
 export const mapEmbedUrl =
   `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3018!2d${geo.longitude}!3d${geo.latitude}` +
   `!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c28b506e323f2f%3A0x6c651b29e9901058!2zVGFydGU!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus`;
-export const phoneHref = `tel:${site.contact.phone.replace(/[^\d+]/g, "")}`;
+/** E.164 phone for tel: links and structured data, e.g. "+19297779536". */
+export const phoneE164 = `+1${site.contact.phone.replace(/\D/g, "")}`;
+export const phoneHref = `tel:${phoneE164}`;
 export const emailHref = `mailto:${site.contact.email}`;
+
+/**
+ * The primary "order" CTA (nav + menu page). Points at an online ordering
+ * page when `orderOnlineUrl` is set in content/site.json; until then it is an
+ * honest click-to-call so customers can order ahead by phone.
+ */
+export const orderCta = site.orderOnlineUrl
+  ? { label: "Order Online", href: site.orderOnlineUrl, external: true }
+  : { label: "Call to Order", href: phoneHref, external: false };
 
 export const navItems = siteData.nav as NavItem[];
 export const hours = siteData.hours as HoursRow[];

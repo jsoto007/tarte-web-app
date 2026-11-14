@@ -17,15 +17,29 @@ import { InstagramIcon } from "./InstagramIcon";
 
 const instagramHref = "https://www.instagram.com/tartebakes/";
 
+/**
+ * Reads `?category=` and renders the grid. `useSearchParams` makes this
+ * client-only, so the page's Suspense fallback renders <GalleryGridView>
+ * with "All" — that keeps every photo in the static HTML for crawlers.
+ */
 export function GalleryGrid() {
-  const router = useRouter();
   const searchParams = useSearchParams();
+  return (
+    <GalleryGridView requestedCategory={searchParams.get("category") ?? "All"} />
+  );
+}
+
+export function GalleryGridView({
+  requestedCategory,
+}: {
+  requestedCategory: string;
+}) {
+  const router = useRouter();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [photoRatio, setPhotoRatio] = useState(1);
   const triggerRef = useRef<HTMLElement | null>(null);
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
-  const requestedCategory = searchParams.get("category") ?? "All";
   const category = galleryCategories.includes(requestedCategory)
     ? requestedCategory
     : "All";
@@ -152,7 +166,7 @@ export function GalleryGrid() {
           >
             <Image
               src={g.img}
-              alt=""
+              alt={`${g.label} at Tarte, Pelham Bay bakery in the Bronx`}
               fill
               sizes="(max-width: 600px) 100vw, (max-width: 1180px) 50vw, 380px"
               style={{ objectFit: "cover" }}

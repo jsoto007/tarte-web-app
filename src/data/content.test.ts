@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { menu, menuGroups } from "./menu";
+import { menu, menuGroups, sectionId } from "./menu";
 import { gallery, galleryCategories } from "./gallery";
 import {
   directionsUrl,
@@ -148,5 +148,23 @@ describe("site data shape", () => {
     expect(directionsUrl).toBe(
       "https://www.google.com/maps/dir/?api=1&destination=2960%20Middletown%20Rd%2C%20Bronx%2C%20NY%2010461",
     );
+  });
+});
+
+describe("home deep links", () => {
+  const sectionIds = new Set(menu.map((s) => sectionId(s.title)));
+  const hrefs = [...features, ...specialties]
+    .map((card) => card.href)
+    .filter((href): href is string => Boolean(href));
+
+  it("slugifies section titles into anchor ids", () => {
+    expect(sectionId("Sandwiches & Wraps")).toBe("sandwiches-wraps");
+    expect(sectionId("Eggs Any Style & Omelets")).toBe("eggs-any-style-omelets");
+  });
+
+  it.each(hrefs)("points at a real page or menu section: %s", (href) => {
+    const [path, hash] = href.split("#");
+    expect(["/menu", "/order-cake"]).toContain(path);
+    if (hash !== undefined) expect(sectionIds).toContain(hash);
   });
 });

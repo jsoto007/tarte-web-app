@@ -4,9 +4,19 @@ import { Button } from "./Button";
 import { Eyebrow } from "./Eyebrow";
 import { InstagramHandle } from "./InstagramIcon";
 
-function Tile({ label, img }: { label: string; img: string }) {
+function Tile({
+  label,
+  img,
+  duplicate = false,
+}: {
+  label: string;
+  img: string;
+  /** The second copy exists only for the seamless loop; hide it from AT. */
+  duplicate?: boolean;
+}) {
   return (
     <div
+      aria-hidden={duplicate || undefined}
       style={{
         width: 220,
         height: 220,
@@ -20,7 +30,7 @@ function Tile({ label, img }: { label: string; img: string }) {
     >
       <Image
         src={img}
-        alt=""
+        alt={`${label} at Tarte, Pelham Bay bakery in the Bronx`}
         fill
         sizes="220px"
         style={{ objectFit: "cover" }}
@@ -82,7 +92,7 @@ export function InstagramMarquee() {
             <Tile key={`a-${i}`} label={g.label} img={g.img} />
           ))}
           {gallery.map((g, i) => (
-            <Tile key={`b-${i}`} label={g.label} img={g.img} />
+            <Tile key={`b-${i}`} label={g.label} img={g.img} duplicate />
           ))}
         </div>
       </div>
